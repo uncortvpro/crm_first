@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: "Roboto";
+  }
+  .no_scroll_bar::-webkit-scrollbar {
+    width: 0;
+  }
+  * {
+    line-height: 100%;
+  }
+}
