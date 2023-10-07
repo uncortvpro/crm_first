@@ -37,7 +37,7 @@ const router = useRouter();
             <UiButton
               class="font-raleway mt-[5px]"
               @click="router.push({ name: 'Profile' })"
-            />
+            >Вхід</UiButton>
           </div>
         </form>
       </div>

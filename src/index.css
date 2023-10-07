@@ -12,4 +12,17 @@
   * {
     line-height: 100%;
   }
+  .hover_svg_primary_700 svg {
+    fill: #264233;
+  }
+
+  .remove_arrow_input::-webkit-outer-spin-button,
+  .remove_arrow_input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .remove_arrow_input[type="number"] {
+    -moz-appearance: textfield;
+  }
 }

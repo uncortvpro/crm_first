@@ -1,9 +1,11 @@
 import type { Config } from "tailwindcss";
+const colors = require("tailwindcss/colors")
 
 export default <Partial<Config>>{
   content: [
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
+    "./node_modules/vue-tailwind-datepicker/**/*.js"
   ],
   theme: {
     screens: {
@@ -19,8 +21,11 @@ export default <Partial<Config>>{
     },
     extend: {
       colors: {
+        "vtd-primary": colors.sky, // Light mode Datepicker color
+        "vtd-secondary": colors.gray, // Dark mode Datepicker color
         light: "#C4C4C4",
         primary: {
+          50: "#DDF2DE",
           100: "#C0E3C9",
           200: "#A3D2B4",
           300: "#87C3A0",
@@ -36,6 +41,8 @@ export default <Partial<Config>>{
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 }
 

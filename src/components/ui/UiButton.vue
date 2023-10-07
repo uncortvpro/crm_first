@@ -2,9 +2,9 @@
 
 <template>
   <button
-    class="bg-primary-600 rounded-[36px] py-[26px] text-white text-[22px] font-medium uppercase"
+    class="bg-primary-600 rounded-[36px] py-[26px] text-white text-[22px] font-medium uppercase hover:bg-primary-700 "
   >
-    Вхід
+    <slot />
   </button>
 </template>
 
