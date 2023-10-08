@@ -3,15 +3,19 @@ import CommonInput from "../components/common/CommonInput.vue";
 import UiButton from "../components/ui/UiButton.vue";
 import Calendar from "../components/common/Calendar.vue";
 import ModalCardClient from "../components/common/ModalCardClient.vue";
-import { ref, watch } from "vue";
+import { ref } from "vue";
 
 const isCard = ref(false);
 
+const switchCard = (value: boolean) => {
+  isCard.value = value;
+};
+const array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 </script>
 
 <template>
   <div class="flex-1 overflow-x-hidden md:overflow-x-visible">
-    <ModalCardClient :isModal="isCard" />
+    <ModalCardClient :isModal="isCard" @closeModal="switchCard(false)" />
     <h3 class="text-[26px] md:text-[36px] font-light">Клієнти</h3>
     <div class="mt-[24px]">
       <div class="lg:max-w-[80%]">
@@ -72,203 +76,14 @@ const isCard = ref(false);
             </tr>
           </thead>
           <tbody class="">
-            <tr class="border-b border-primary-100">
+            <tr v-for="item in array" class="border-b border-primary-100">
               <td class="text-[14px] text-light font-normal p-[20px]">
                 1010101010
               </td>
               <td class="text-[14px] text-light font-normal p-[20px]">
-                <button class="p-0" @click="() => isCard = !isCard">
+                <button class="p-0" @click="switchCard(true)">
                   ФОП Курило Дмитро Васильович
                 </button>
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                barbea@gmail.com
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                +380993883108
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                21.06.2021
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                21.06.2021
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">Новий</td>
-            </tr>
-            <tr class="border-b border-primary-100">
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                1010101010
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                <a href="#">ФОП Курило Дмитро Васильович</a>
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                barbea@gmail.com
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                +380993883108
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                21.06.2021
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                21.06.2021
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">Новий</td>
-            </tr>
-            <tr class="border-b border-primary-100">
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                1010101010
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                <a href="#">ФОП Курило Дмитро Васильович</a>
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                barbea@gmail.com
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                +380993883108
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                21.06.2021
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                21.06.2021
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">Новий</td>
-            </tr>
-            <tr class="border-b border-primary-100">
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                1010101010
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                <a href="#">ФОП Курило Дмитро Васильович</a>
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                barbea@gmail.com
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                +380993883108
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                21.06.2021
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                21.06.2021
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">Новий</td>
-            </tr>
-            <tr class="border-b border-primary-100">
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                1010101010
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                <a href="#">ФОП Курило Дмитро Васильович</a>
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                barbea@gmail.com
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                +380993883108
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                21.06.2021
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                21.06.2021
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">Новий</td>
-            </tr>
-            <tr class="border-b border-primary-100">
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                1010101010
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                <a href="#">ФОП Курило Дмитро Васильович</a>
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                barbea@gmail.com
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                +380993883108
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                21.06.2021
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                21.06.2021
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">Новий</td>
-            </tr>
-            <tr class="border-b border-primary-100">
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                1010101010
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                <a href="#">ФОП Курило Дмитро Васильович</a>
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                barbea@gmail.com
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                +380993883108
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                21.06.2021
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                21.06.2021
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">Новий</td>
-            </tr>
-            <tr class="border-b border-primary-100">
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                1010101010
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                <a href="#">ФОП Курило Дмитро Васильович</a>
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                barbea@gmail.com
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                +380993883108
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                21.06.2021
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                21.06.2021
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">Новий</td>
-            </tr>
-            <tr class="border-b border-primary-100">
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                1010101010
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                <a href="#">ФОП Курило Дмитро Васильович</a>
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                barbea@gmail.com
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                +380993883108
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                21.06.2021
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                21.06.2021
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">Новий</td>
-            </tr>
-            <tr class="border-b border-primary-100">
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                1010101010
-              </td>
-              <td class="text-[14px] text-light font-normal p-[20px]">
-                <a href="#">ФОП Курило Дмитро Васильович</a>
               </td>
               <td class="text-[14px] text-light font-normal p-[20px]">
                 barbea@gmail.com

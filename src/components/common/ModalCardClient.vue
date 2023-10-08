@@ -2,6 +2,11 @@
 defineProps<{
   isModal: boolean;
 }>();
+const emits = defineEmits(["closeModal"]);
+
+const closeModal = () => {
+  emits("closeModal");
+};
 </script>
 
 <template>
@@ -10,6 +15,7 @@ defineProps<{
     :class="{ '!right-0': isModal }"
   >
     <button
+      @click="closeModal"
       class="inline-block my-[28px] mx-[17px] text-[20px] text-white font-medium"
     >
       &lt;&lt;
