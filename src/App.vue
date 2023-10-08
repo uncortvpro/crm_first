@@ -11,7 +11,7 @@ provide("URL", URL);
 
 <template>
   <div
-    class="h-[100vh] w-full bg-primary-800 flex flex-col text-white"
+    class="h-[100vh] w-full bg-primary-800 flex flex-col text-white overflow-scroll lg:overflow-hidden"
   >
     <router-view> </router-view>
   </div>

@@ -4,12 +4,9 @@ import type { DatePickerInstance } from "@vuepic/vue-datepicker";
 
 const date = ref();
 const datepicker = ref<DatePickerInstance>(null);
-const yourCustomMethod = () => {
+const selectDate = () => {
   if (datepicker.value) {
-    console.log("safsaffa");
-
     datepicker.value.selectDate();
-    // datepicker.value.closeMenu();
   }
 };
 
@@ -34,12 +31,12 @@ const format = (dates: any) => {
 </script>
 
 <template>
-  <label class="text-[12px] max-w-[210px] flex flex-col gap-[7px]">
+  <label class="text-[12px] flex flex-col gap-[7px]">
     <span class="ml-[10px]"><slot /></span>
 
     <VueDatePicker
       class="date_picker"
-      @closed="yourCustomMethod"
+      @closed="selectDate"
       v-model="date"
       range
       locale="uk"
@@ -53,7 +50,7 @@ const format = (dates: any) => {
           class="self-end w-full relative rounded-[26px] font-medium text-[14px] border border-white py-[10px] pl-[16px] pr-[63px]"
         >
           <span
-            class="text-[14px] truncate w-[120%] inline-block whitespace-nowrap"
+            class="text-[14px] text-left truncate w-[120%] inline-block whitespace-nowrap"
             >{{ value || "від 00.00.00 до 00.00.00 " }}</span
           >
           <span

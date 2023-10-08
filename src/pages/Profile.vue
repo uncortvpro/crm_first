@@ -3,8 +3,10 @@ import NavigationItem from "../components/common/NavigationItem.vue";
 </script>
 
 <template>
-  <div class="w-full py-[29px] flex-1 px-[11px] md:py-[69px] flex flex-col">
-    <div class="flex-1 flex gap-[10px] md:gap-[30px]">
+  <div
+    class="w-full h-full py-[29px] flex-1 px-[11px] md:px-[20px] md:py-[69px] flex flex-col"
+  >
+    <div class="flex-1 flex gap-[10px] md:gap-[30px] h-full">
       <div
         class="w-[60px] bg-primary-700 rounded-[10px] flex flex-col items-center gap-2 max-h-[651px]"
       >
@@ -81,7 +83,7 @@ import NavigationItem from "../components/common/NavigationItem.vue";
           <template v-slot:title>BI Prozzoro</template>
         </NavigationItem>
       </div>
-      <div class="flex-1 flex flex-col">
+      <div class="flex-1 flex flex-col h-full overflow-auto custom_no_scroll_bar pr-[5px]">
         <router-view> </router-view>
       </div>
     </div>
