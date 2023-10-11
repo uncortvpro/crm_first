@@ -1,14 +1,21 @@
 <script setup lang="ts">
 import UiInput from "../components/ui/UiInput.vue";
 import UiButton from "../components/ui/UiButton.vue";
-import { useRouter } from "vue-router";
+import { reactive } from "vue";
+import { useAuthStore } from "../stores";
 
-const router = useRouter();
+const authStore = useAuthStore();
+const form = reactive({
+  username: "",
+  password: "",
+});
+
+const login = () => authStore.login(form);
 </script>
 
 <template>
   <div
-    class="w-full flex justify-center items-start text-black py-[32px]  !font-raleway"
+    class="w-full flex justify-center items-start text-black py-[32px] !font-raleway"
   >
     <div
       class="flex flex-col items-center w-[90%] md:w-[700px] pt-[41px] pb-[21px] px-[20px] bg-light rounded-[40px]"
@@ -20,24 +27,25 @@ const router = useRouter();
         >
           Авторизація
         </h3>
-        <form action="#" class="w-full">
+        <form action="#" class="w-full" @submit.prevent="login">
           <div class="flex w-full flex-col gap-[25px]">
             <div>
               <label class="flex flex-col w-full text-[14px]">
                 Електронна пошта або логін
-                <UiInput class="mt-[6px]" />
+                <UiInput v-model="form.username" class="mt-[6px]" />
               </label>
             </div>
             <div>
               <label class="flex flex-col w-full text-[14px]">
                 Пароль
-                <UiInput class="mt-[6px]" type="password" />
+                <UiInput
+                  v-model="form.password"
+                  class="mt-[6px]"
+                  type="password"
+                />
               </label>
             </div>
-            <UiButton
-              class="font-raleway mt-[5px]"
-              @click="router.push({ name: 'Profile' })"
-            >Вхід</UiButton>
+            <UiButton class="font-raleway mt-[5px]">Вхід</UiButton>
           </div>
         </form>
       </div>
