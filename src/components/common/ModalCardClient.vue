@@ -1,11 +1,37 @@
 <script setup lang="ts">
-defineProps<{
+import UiButton from "../ui/UiButton.vue";
+import { useSettingsStore } from "../../stores";
+import { computed, ref } from "vue";
+
+const settingsStore = useSettingsStore();
+const API_URL = computed(() => settingsStore.API_URL);
+const props = defineProps<{
   isModal: boolean;
+  client: any;
 }>();
-const emits = defineEmits(["closeModal"]);
+const emits = defineEmits(["closeModal", "updateClients"]);
 
 const closeModal = () => {
   emits("closeModal");
+};
+const comment = ref("");
+
+const onLeaveComment = () => {
+  const token = localStorage.getItem("token");
+  fetch(`${API_URL.value}/add_comment`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      access_token: token,
+      id: props.client.id,
+      comment: comment.value,
+    }),
+  }).then(() => {
+    emits("updateClients");
+    comment.value = "";
+  });
 };
 </script>
 
@@ -45,26 +71,70 @@ const closeModal = () => {
         <ul
           class="px-[16px] flex flex-col gap-[12px] py-[10px] bg-primary-700 rounded-[10px] shadow-inner shadow-primary-800"
         >
-          <li class="text-white text-[14px] font-medium">Код: ”291232323”</li>
-          <li class="text-white text-[14px] font-medium">Код: ”291232323”</li>
-          <li class="text-white text-[14px] font-medium">Код: ”291232323”</li>
-          <li class="text-white text-[14px] font-medium">Код: ”291232323”</li>
-          <li class="text-white text-[14px] font-medium">Код: ”291232323”</li>
-          <li class="text-white text-[14px] font-medium">Код: ”291232323”</li>
-          <li class="text-white text-[14px] font-medium">Код: ”291232323”</li>
-          <li class="text-white text-[14px] font-medium">Код: ”291232323”</li>
-          <li class="text-white text-[14px] font-medium">Код: ”291232323”</li>
-          <li class="text-white text-[14px] font-medium">Код: ”291232323”</li>
+          <li class="text-white text-[14px] font-medium">
+            Код: {{ `”${client.code}”` }}
+          </li>
+          <li class="text-white text-[14px] font-medium">
+            Коротке ім'я: {{ `”${client.short_name}”` }}
+          </li>
+          <li class="text-white text-[14px] font-medium">
+            Повне ім'я: {{ `”${client.full_name}”` }}
+          </li>
+          <li class="text-white text-[14px] font-medium">
+            Логін: {{ `”${client.login}”` }}
+          </li>
+          <li class="text-white text-[14px] font-medium">
+            Телефон: {{ `”${client.telephone}”` }}
+          </li>
+          <li class="text-white text-[14px] font-medium">
+            Країна: {{ `”${client.countryName}”` }}
+          </li>
+          <li class="text-white text-[14px] font-medium">
+            Поштовий індекс: {{ `”${client.postalCode}”` }}
+          </li>
+          <li class="text-white text-[14px] font-medium">
+            Область: {{ `”${client.region}”` }}
+          </li>
+          <li class="text-white text-[14px] font-medium">
+            Населений пункт: {{ `”${client.locality}”` }}
+          </li>
+          <li class="text-white text-[14px] font-medium">
+            Адреса в населеному пункті: {{ `”${client.streetAddress}”` }}
+          </li>
+          <li class="text-white text-[14px] font-medium">
+            IBAN: {{ `”${client.iban}”` }}
+          </li>
+          <li class="text-white text-[14px] font-medium">
+            ПІБ Керівника: {{ `”${client?.mainPP_name}”` }}
+          </li>
+          <li class="text-white text-[14px] font-medium">
+            Посада керівника: {{ `”${client.mainPP_position}”` }}
+          </li>
+          <li class="text-white text-[14px] font-medium">
+            Дата реєстрації: {{ `”${client.register_date}”` }}
+          </li>
+          <li class="text-white text-[14px] font-medium">
+            Дата створення: {{ `”${client.create_date}”` }}
+          </li>
+          <li class="text-white text-[14px] font-medium">
+            StateText: {{ `”${client.StateText}”` }}
+          </li>
         </ul>
-        <div
-          class="flex flex-col h-[140px] gap-[10px] bg-primary-700 rounded-[10px] mt-[20px] shadow-inner shadow-primary-800 py-[14px] px-[16px]"
-        >
-          <p class="text-white text-[14px] font-medium">Коментар:</p>
-          <textarea
-            class="bg-transparent resize-none flex-1 border-none placeholder:text-white text-[14px] font-medium focus:ring-0 p-0"
-            placeholder="Вводьте текст..."
-          ></textarea>
-        </div>
+        <form action="#" @submit.prevent="onLeaveComment">
+          <div
+            class="flex flex-col h-[140px] gap-[10px] bg-primary-700 rounded-[10px] mt-[20px] shadow-inner shadow-primary-800 py-[14px] px-[16px]"
+          >
+            <p class="text-white text-[14px] font-medium">Коментар:</p>
+            <textarea
+              v-model="comment"
+              class="bg-transparent resize-none flex-1 border-none placeholder:text-white text-[14px] font-medium focus:ring-0 p-0"
+              placeholder="Вводьте текст..."
+            ></textarea>
+          </div>
+          <UiButton class="mt-3 !text-[12px] !py-[10px] !px-[10px]"
+            >Залишити коментар</UiButton
+          >
+        </form>
       </div>
     </div>
   </div>

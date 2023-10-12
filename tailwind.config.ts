@@ -35,6 +35,7 @@ export default <Partial<Config>>{
           700: "#264233",
           800: "#0D1C15",
         },
+        blue: '#606595'
       },
       screens: {
         "is-hover": { raw: "(hover: hover)" },

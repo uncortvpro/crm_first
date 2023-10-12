@@ -2,6 +2,13 @@
 import { ref } from "vue";
 import type { DatePickerInstance } from "@vuepic/vue-datepicker";
 
+const props = defineProps<{
+  inputType: string[];
+}>();
+const emits = defineEmits(["changeValue"]);
+
+const fromDate = ref("");
+const toDate = ref("");
 const date = ref();
 const datepicker = ref<DatePickerInstance>(null);
 const selectDate = () => {
@@ -13,20 +20,35 @@ const selectDate = () => {
 const format = (dates: any) => {
   let string = "";
   dates.forEach((element: any, index: number) => {
-    if (index === 0) {
-      string += "від ";
-    }
-    if (index === 1) {
-      string += " до ";
-    }
-
     const day = element.getDate();
     const month = element.getMonth();
     const year = element.getFullYear();
 
+    if (index === 0) {
+      string += "від ";
+      fromDate.value = day + "-" + month + "-" + year;
+    }
+    if (index === 1) {
+      string += " до ";
+      toDate.value = day + "-" + month + "-" + year;
+    }
+
     string += day + "." + month + "." + year;
   });
   return string;
+};
+
+const onChangeDate = () => {
+  let value = "";
+  props.inputType.forEach((type: string, index: number) => {
+    if (index === 0) {
+      value = fromDate.value;
+    }
+    if (index === 1) {
+      value = toDate.value;
+    }
+    emits("changeValue", type, value);
+  });
 };
 </script>
 
@@ -38,6 +60,7 @@ const format = (dates: any) => {
       class="date_picker"
       @closed="selectDate"
       v-model="date"
+      @update:model-value="onChangeDate"
       range
       locale="uk"
       ref="datepicker"

@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { useSettingsStore } from "../stores/";
-import { useRouter } from 'vue-router';
 
 type Credentials = {
   username: string,
@@ -9,25 +8,41 @@ type Credentials = {
 
 export const useAuthStore = defineStore('auth', () => {
     const settingsStore = useSettingsStore();
-    const router = useRouter();
-    const saveToken = (token: string) => {
-      localStorage.setItem('token', token)
+    
+    async function checkToken() {
+      const token =  localStorage.getItem('token');
+      
+      let response = false;
+      await fetch(`${settingsStore.API_URL}/validate_tokens`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({access_token:token}),
+      })
+      .then(res => res.json())
+      .then(res=> {
+        response = res.valid || false;
+      })
+      return response;
     }
 
     function successAuth(token: string) {
-      saveToken(token);
-      router.push({name:'Profile'});
+      if(!token) return false;
+      localStorage.setItem('token', token)
+      return true
     }
 
-    function failedToken(message: string) {
+    function isFailedToken(message: string) {
         if(message === "Token has expired" || message === "Access token is missing" || message === "Invalid token") {
           localStorage.removeItem('token');
-          router.push({name:'Authorize'});
+          return true;
         }
+        return false;
     } 
 
     function login(form: Credentials) {
-        fetch(`${settingsStore.API_URL}/login`, {
+       return fetch(`${settingsStore.API_URL}/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -35,10 +50,7 @@ export const useAuthStore = defineStore('auth', () => {
           body: JSON.stringify(form),
         })
           .then((res) => res.json())
-          .then((res) => {
-            successAuth(res.access_token);
-          });
       };
   
-    return { login, successAuth, failedToken };
+    return { login, successAuth, checkToken, isFailedToken };
   })

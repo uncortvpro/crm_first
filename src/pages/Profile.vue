@@ -83,7 +83,9 @@ import NavigationItem from "../components/common/NavigationItem.vue";
           <template v-slot:title>BI Prozzoro</template>
         </NavigationItem>
       </div>
-      <div class="flex-1 flex flex-col h-full overflow-auto custom_no_scroll_bar pr-[5px]">
+      <div
+        class="flex-1 flex flex-col h-full overflow-auto custom_no_scroll_bar pr-[5px]"
+      >
         <router-view> </router-view>
       </div>
     </div>
