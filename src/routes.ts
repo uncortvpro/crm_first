@@ -12,6 +12,7 @@ export const routes = [
     name: 'Authorize',
     path: '/',
     component: Authorize,
+    // @ts-ignore
     beforeEnter: async (to: any, from: any) => {
       const auth = useAuthStore();
       const isToken = await auth.checkToken();
@@ -24,6 +25,7 @@ export const routes = [
     name: 'Profile',
     path: '/profile',
     component: Profile,
+    // @ts-ignore
     beforeEnter: async (to: any, from: any) => {
       const auth = useAuthStore();
       const isToken = await auth.checkToken();
