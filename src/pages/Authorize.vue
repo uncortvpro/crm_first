@@ -32,7 +32,7 @@ const login = () => {
 
 <template>
   <div
-    class="w-full flex justify-center items-start text-black py-[32px] !font-raleway"
+    class="w-full flex justify-center items-start overflow-scroll h-full no_scroll_bar text-black py-[32px] !font-raleway"
   >
     <div
       class="flex flex-col items-center w-[90%] md:w-[700px] pt-[41px] pb-[21px] px-[20px] bg-light rounded-[40px]"
