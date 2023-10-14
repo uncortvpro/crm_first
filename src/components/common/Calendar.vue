@@ -19,6 +19,7 @@ const selectDate = () => {
 
 const format = (dates: any) => {
   let string = "";
+
   dates.forEach((element: any, index: number) => {
     const day = element.getDate();
     const month = element.getMonth();
@@ -36,6 +37,18 @@ const format = (dates: any) => {
     string += day + "." + month + "." + year;
   });
   return string;
+};
+
+const fromD = ref("");
+const changeStartDate = (from: any) => {
+  fromD.value = from;
+  datepicker.value?.updateInternalModelValue(from);
+};
+
+const changeEndDate = (to: any) => {
+  datepicker.value?.parseModel([fromD.value, to]);
+  selectDate();
+  datepicker.value?.closeMenu();
 };
 
 const onChangeDate = () => {
@@ -58,8 +71,9 @@ const onChangeDate = () => {
 
     <VueDatePicker
       class="date_picker"
-      @closed="selectDate"
       v-model="date"
+      @range-start="changeStartDate"
+      @range-end="changeEndDate"
       @update:model-value="onChangeDate"
       range
       locale="uk"
