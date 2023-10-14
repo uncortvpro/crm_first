@@ -269,7 +269,7 @@ fetchClients();
             />
           </tbody>
         </table>
-        <div class="mt-[40px] flex items-center gap-[50px] justify-end">
+        <div class="mt-[40px] flex flex-col sm:flex-row items-center gap-[50px] justify-end">
           <div class="text-white text-[14px] flex items-center gap-[10px]">
             <label
               for="countries"
