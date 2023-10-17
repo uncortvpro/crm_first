@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useDate } from "../../utils/useDate";
+
 const props = defineProps<{
   client: any;
 }>();
@@ -35,12 +37,12 @@ const openModal = () => {
     <td
       class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"
     >
-      {{ client.register_date }}
+      {{ useDate(client.register_date) }}
     </td>
     <td
       class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"
     >
-      {{ client.create_date }}
+      {{ useDate(client.create_date) }}
     </td>
     <td
       class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"
