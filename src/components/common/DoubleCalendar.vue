@@ -22,8 +22,9 @@ const format = (dates: any) => {
 
   dates.forEach((element: any, index: number) => {
     const day = element.getDate();
-    const month = element.getMonth();
+    const month = element.getMonth() + 1;
     const year = element.getFullYear();
+    console.log(element);
 
     if (index === 0) {
       string += "від ";
@@ -66,7 +67,7 @@ const onChangeDate = () => {
 </script>
 
 <template>
-  <label class="text-[12px] flex flex-col gap-[7px]">
+  <div class="text-[12px] flex flex-col gap-[7px]">
     <span class="ml-[10px]"><slot /></span>
 
     <VueDatePicker
@@ -80,7 +81,7 @@ const onChangeDate = () => {
       ref="datepicker"
       :format="format"
       :enable-time-picker="false"
-      :multi-calendars="{ solo: true }"
+      :multi-calendars="{ solo: false }"
     >
       <template #dp-input="{ value }">
         <button
@@ -91,6 +92,7 @@ const onChangeDate = () => {
             >{{ value || "від 00.00.00 до 00.00.00 " }}</span
           >
           <span
+            v-if="!date"
             class="absolute w-[30px] h-[30px] flex justify-center items-center bg-primary-200 right-[3px] top-0 bottom-0 my-auto rounded-[50%]"
           >
             <svg
@@ -112,7 +114,7 @@ const onChangeDate = () => {
         </button>
       </template>
     </VueDatePicker>
-  </label>
+  </div>
 </template>
 
 <style>
@@ -120,6 +122,7 @@ const onChangeDate = () => {
   --dp-border-radius: 15px;
   background-color: transparent;
 }
+
 .date_picker.dp__theme_light .dp__menu {
   background-color: #264233;
   border: none;
@@ -164,9 +167,6 @@ const onChangeDate = () => {
 .date_picker.dp__theme_light .dp__action_row {
   display: none;
 }
-.date_picker.dp__theme_light .dp__clear_icon {
-  display: none;
-}
 
 .date_picker.dp__theme_light .dp__menu_inner {
   padding: 0;
@@ -180,5 +180,14 @@ const onChangeDate = () => {
 
 .date_picker.dp__theme_light .dp__menu_inner .dp__instance_calendar {
   padding: 13px 10px;
+}
+
+.date_picker.dp__theme_light .dp__overlay {
+  background-color: #264233;
+  border-radius: 26px;
+}
+
+.date_picker.dp__theme_light .dp__overlay_cell_active {
+  background: #568e6f;
 }
 </style>

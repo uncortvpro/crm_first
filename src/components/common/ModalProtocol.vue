@@ -139,7 +139,9 @@ const onLeaveComment = () => {
               v-model="comment"
               class="bg-transparent resize-none flex-1 border-none placeholder:text-white text-[14px] font-medium focus:ring-0 p-0"
               placeholder="Вводьте текст..."
-            ></textarea>
+            >
+            {{ protocol.comment }}
+          </textarea>
           </div>
           <UiButton class="mt-3 !text-[12px] !py-[10px] !px-[10px]"
             >Залишити коментар</UiButton

@@ -118,7 +118,7 @@ const onLeaveComment = () => {
             Дата створення: {{ `”${useDate(client.create_date)}”` }}
           </li>
           <li class="text-white text-[14px] font-medium">
-            StateText: {{ `”${client.StateText}”` }}
+            Стан: {{ `”${client.StateText}”` }}
           </li>
         </ul>
         <form action="#" @submit.prevent="onLeaveComment">
@@ -130,7 +130,7 @@ const onLeaveComment = () => {
               v-model="comment"
               class="bg-transparent resize-none flex-1 border-none placeholder:text-white text-[14px] font-medium focus:ring-0 p-0"
               placeholder="Вводьте текст..."
-            ></textarea>
+            >{{ client.comment }}</textarea>
           </div>
           <UiButton class="mt-3 !text-[12px] !py-[10px] !px-[10px]"
             >Залишити коментар</UiButton
