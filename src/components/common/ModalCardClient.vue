@@ -2,6 +2,7 @@
 import UiButton from "../ui/UiButton.vue";
 import { useSettingsStore } from "../../stores";
 import { computed, ref } from "vue";
+import { useDate } from "../../utils/useDate";
 
 const settingsStore = useSettingsStore();
 const API_URL = computed(() => settingsStore.API_URL);
@@ -111,10 +112,10 @@ const onLeaveComment = () => {
             Посада керівника: {{ `”${client.mainPP_position}”` }}
           </li>
           <li class="text-white text-[14px] font-medium">
-            Дата реєстрації: {{ `”${client.register_date}”` }}
+            Дата реєстрації: {{ `”${useDate(client.register_date)}”` }}
           </li>
           <li class="text-white text-[14px] font-medium">
-            Дата створення: {{ `”${client.create_date}”` }}
+            Дата створення: {{ `”${useDate(client.create_date)}”` }}
           </li>
           <li class="text-white text-[14px] font-medium">
             StateText: {{ `”${client.StateText}”` }}
