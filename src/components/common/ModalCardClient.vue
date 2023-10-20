@@ -66,7 +66,7 @@ const onLeaveComment = () => {
       </div>
       <div class="mt-[23px] max-w-[482px]">
         <p class="text-white text-[14px] font-medium px-[16px] py-[6px]">
-          ID Клієнта: ”7559”
+          ID Клієнта: ”{{ client.id }}”
         </p>
         <ul
           class="px-[16px] flex flex-col gap-[12px] py-[10px] bg-primary-700 rounded-[10px] shadow-inner shadow-primary-800"

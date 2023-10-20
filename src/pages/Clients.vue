@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import CommonInput from "../components/common/CommonInput.vue";
 import UiButton from "../components/ui/UiButton.vue";
-import Calendar from "../components/common/Calendar.vue";
+import DoubleCalendar from "../components/common/DoubleCalendar.vue";
 import ModalCardClient from "../components/common/ModalCardClient.vue";
 import ClientItem from "../components/common/ClientItem.vue";
 import { ref, computed, reactive, watch } from "vue";
@@ -194,17 +194,17 @@ fetchClients();
               >E-mail:</CommonInput
             >
             <div>
-              <Calendar
+              <DoubleCalendar
                 @changeValue="changeFilters"
                 :inputType="['registerDateStart', 'registerDateEnd']"
-                >Дата реєстрації:</Calendar
+                >Дата реєстрації:</DoubleCalendar
               >
             </div>
             <div>
-              <Calendar
+              <DoubleCalendar
                 @changeValue="changeFilters"
                 :inputType="['createDateStart', 'createDateEnd']"
-                >Дата створення:</Calendar
+                >Дата створення:</DoubleCalendar
               >
             </div>
             <div class="md:col-span-2 items-end lg:col-span-3 flex justify-end">
