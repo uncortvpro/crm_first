@@ -7,7 +7,6 @@ const props = defineProps<{
 const emits = defineEmits(["switchModal", "setCurrentIdProtocol"]);
 
 const openModal = () => {
-  console.log("qwdwqdqd");
 
   emits("setCurrentIdProtocol", props.protocol.id);
   emits("switchModal");

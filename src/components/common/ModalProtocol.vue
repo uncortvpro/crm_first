@@ -2,7 +2,7 @@
 import UiButton from "../ui/UiButton.vue";
 import { useDate } from "../../utils/useDate";
 import { useSettingsStore } from "../../stores";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 
 const settingsStore = useSettingsStore();
 const API_URL = computed(() => settingsStore.API_URL);
@@ -15,7 +15,15 @@ const emits = defineEmits(["closeModal", "updateProtocols"]);
 const closeModal = () => {
   emits("closeModal");
 };
-const comment = ref("");
+const comment = ref(props.protocol?.comment);
+
+watch(
+  () => props.protocol , 
+  () => { 
+    comment.value = props.protocol.comment
+  }, {deep: true}
+)
+
 
 const onLeaveComment = () => {
   const token = localStorage.getItem("token");
@@ -111,10 +119,12 @@ const onLeaveComment = () => {
             {{ `”${useDate(protocol?.newprotokol)}”` }}
           </li>
           <li class="text-white leading-[120%] text-[14px] font-medium">
-            Підписання протоколу до: {{ `”${useDate(protocol?.protocol_enddate)}”` }}
+            Підписання протоколу до:
+            {{ `”${useDate(protocol?.protocol_enddate)}”` }}
           </li>
           <li class="text-white leading-[120%] text-[14px] font-medium">
-            Підписання договору до: {{ `”${useDate(protocol?.contract_enddate)}”` }}
+            Підписання договору до:
+            {{ `”${useDate(protocol?.contract_enddate)}”` }}
           </li>
           <li class="text-white leading-[120%] text-[14px] font-medium">
             Посилання Прозорро:
@@ -140,8 +150,7 @@ const onLeaveComment = () => {
               class="bg-transparent resize-none flex-1 border-none placeholder:text-white text-[14px] font-medium focus:ring-0 p-0"
               placeholder="Вводьте текст..."
             >
-            {{ protocol.comment }}
-          </textarea>
+            </textarea>
           </div>
           <UiButton class="mt-3 !text-[12px] !py-[10px] !px-[10px]"
             >Залишити коментар</UiButton

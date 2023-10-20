@@ -132,7 +132,6 @@ const fetchProtocols = () => {
         router.push({ name: "Authorize" });
         return false;
       }
-      console.log(res);
 
       protocols.value = res.protocols;
       endRange.value = res.end_range;

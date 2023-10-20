@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import UiButton from "../ui/UiButton.vue";
 import { useSettingsStore } from "../../stores";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { useDate } from "../../utils/useDate";
 
 const settingsStore = useSettingsStore();
@@ -11,11 +11,19 @@ const props = defineProps<{
   client: any;
 }>();
 const emits = defineEmits(["closeModal", "updateClients"]);
+console.log(props.client);
 
 const closeModal = () => {
   emits("closeModal");
 };
-const comment = ref("");
+const comment = ref(props.client?.comment);
+
+watch(
+  () => props.client , 
+  () => { 
+    comment.value = props.client.comment
+  }, {deep: true}
+)
 
 const onLeaveComment = () => {
   const token = localStorage.getItem("token");
@@ -130,7 +138,7 @@ const onLeaveComment = () => {
               v-model="comment"
               class="bg-transparent resize-none flex-1 border-none placeholder:text-white text-[14px] font-medium focus:ring-0 p-0"
               placeholder="Вводьте текст..."
-            >{{ client.comment }}</textarea>
+            ></textarea>
           </div>
           <UiButton class="mt-3 !text-[12px] !py-[10px] !px-[10px]"
             >Залишити коментар</UiButton
