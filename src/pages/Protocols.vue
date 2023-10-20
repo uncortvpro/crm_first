@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import CommonInput from "../components/common/CommonInput.vue";
+import CommonSelect from "../components/common/CommonSelect.vue";
 import UiButton from "../components/ui/UiButton.vue";
 import DoubleCalendar from "../components/common/DoubleCalendar.vue";
 import ModalProtocol from "../components/common/ModalProtocol.vue";
@@ -18,6 +19,7 @@ const startRange = ref();
 const totalClients = ref();
 const isProtocolModal = ref<boolean>(false);
 const currentIdProtocol = ref<number>();
+const newStatusOptions = ref([]);
 
 const switchProtocol = (value: boolean) => {
   isProtocolModal.value = value;
@@ -39,13 +41,14 @@ const filters = reactive({
   code: "",
   newstatus: "",
   tenderID: "",
-  // name: "",
-  // telephone: "",
-  // email: "",
-  // registerDateStart: "",
-  // registerDateEnd: "",
-  // createDateStart: "",
-  // createDateEnd: "",
+  auctionDateStart: "",
+  auctionDateEnd: "",
+  newprotokolStart: "",
+  newprotokolEnd: "",
+  protocolEnddateStart: "",
+  protocolEnddateEnd: "",
+  contractEnddateStart: "",
+  contractEnddateEnd: "",
 });
 
 const changeFilters = (filterType: string, filterValue: any) => {
@@ -68,27 +71,30 @@ const changeFilters = (filterType: string, filterValue: any) => {
     case "tenderID":
       filters[filterType] = filterValue;
       break;
-    // case "name":
-    //   filters[filterType] = filterValue;
-    //   break;
-    // case "telephone":
-    //   filters[filterType] = filterValue;
-    //   break;
-    // case "email":
-    //   filters[filterType] = filterValue;
-    //   break;
-    // case "registerDateStart":
-    //   filters[filterType] = filterValue;
-    //   break;
-    // case "registerDateEnd":
-    //   filters[filterType] = filterValue;
-    //   break;
-    // case "createDateStart":
-    //   filters[filterType] = filterValue;
-    //   break;
-    // case "createDateEnd":
-    //   filters[filterType] = filterValue;
-    //   break;
+    case "auctionDateStart":
+      filters[filterType] = filterValue;
+      break;
+    case "auctionDateEnd":
+      filters[filterType] = filterValue;
+      break;
+    case "newprotokolStart":
+      filters[filterType] = filterValue;
+      break;
+    case "newprotokolEnd":
+      filters[filterType] = filterValue;
+      break;
+    case "protocolEnddateStart":
+      filters[filterType] = filterValue;
+      break;
+    case "protocolEnddateEnd":
+      filters[filterType] = filterValue;
+      break;
+    case "contractEnddateStart":
+      filters[filterType] = filterValue;
+      break;
+    case "contractEnddateEnd":
+      filters[filterType] = filterValue;
+      break;
 
     default:
       break;
@@ -110,13 +116,14 @@ const fetchProtocols = () => {
       tenderID: filters.tenderID,
       keyword: filters.keywords,
       code: filters.code,
-      // name: filters.name,
-      // telephone: filters.telephone,
-      // email: filters.email,
-      // register_date_start: filters.registerDateStart,
-      // register_date_end: filters.registerDateEnd,
-      // create_date_start: filters.createDateStart,
-      // create_date_end: filters.createDateEnd,
+      auction_date_start: filters.auctionDateStart,
+      auction_date_end: filters.auctionDateEnd,
+      newprotokol_start: filters.newprotokolStart,
+      newprotokol_end: filters.newprotokolEnd,
+      protocol_enddate_start: filters.protocolEnddateStart,
+      protocol_enddate_end: filters.protocolEnddateEnd,
+      contract_enddate_start: filters.contractEnddateStart,
+      contract_enddate_end: filters.contractEnddateEnd,
     }),
   })
     .then((res) => res.json())
@@ -131,6 +138,7 @@ const fetchProtocols = () => {
       endRange.value = res.end_range;
       startRange.value = res.start_range;
       totalClients.value = res.total_clients;
+      newStatusOptions.value = res.newstatus_list;
     });
 };
 
@@ -175,7 +183,7 @@ fetchProtocols();
             >
             <DoubleCalendar
               @changeValue="changeFilters"
-              :inputType="['registerDateStart', 'registerDateEnd']"
+              :inputType="['auctionDateStart', 'auctionDateEnd']"
               >Дата аукціону:</DoubleCalendar
             >
             <CommonInput
@@ -194,32 +202,33 @@ fetchProtocols();
               type="number"
               >Код учасника:</CommonInput
             >
-            <CommonInput
+            <CommonSelect
               @changeValue="changeFilters"
               inputType="newstatus"
+              :options="newStatusOptions"
               class="shrink-1"
               placeholder=""
               type="text"
-              >Статус аукціону</CommonInput
+              >Статус аукціону</CommonSelect
             >
             <div>
               <DoubleCalendar
                 @changeValue="changeFilters"
-                :inputType="['registerDateStart', 'registerDateEnd']"
+                :inputType="['newprotokolStart', 'newprotokolEnd']"
                 >Дата формування протоколу:</DoubleCalendar
               >
             </div>
             <div>
               <DoubleCalendar
                 @changeValue="changeFilters"
-                :inputType="['registerDateStart', 'registerDateEnd']"
+                :inputType="['protocolEnddateStart', 'protocolEnddateEnd']"
                 >Підписання протоколу до:</DoubleCalendar
               >
             </div>
             <div>
               <DoubleCalendar
                 @changeValue="changeFilters"
-                :inputType="['registerDateStart', 'registerDateEnd']"
+                :inputType="['contractEnddateStart', 'contractEnddateEnd']"
                 >Підписання договору до:</DoubleCalendar
               >
             </div>

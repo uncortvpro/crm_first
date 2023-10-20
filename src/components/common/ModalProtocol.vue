@@ -19,15 +19,15 @@ const comment = ref("");
 
 const onLeaveComment = () => {
   const token = localStorage.getItem("token");
-  fetch(`${API_URL.value}/add_comment`, {
+  fetch(`${API_URL.value}/add_comment_protocols`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      // access_token: token,
-      // id: props.client.id,
-      // comment: comment.value,
+      access_token: token,
+      id: props.protocol.id,
+      comment: comment.value,
     }),
   }).then(() => {
     emits("updateProtocols");
@@ -111,10 +111,10 @@ const onLeaveComment = () => {
             {{ `”${useDate(protocol?.newprotokol)}”` }}
           </li>
           <li class="text-white leading-[120%] text-[14px] font-medium">
-            <!-- Підписання протоколу до: {{ `”${useDate(protocol?.protocol_enddate)}”` }} -->
+            Підписання протоколу до: {{ `”${useDate(protocol?.protocol_enddate)}”` }}
           </li>
           <li class="text-white leading-[120%] text-[14px] font-medium">
-            <!-- Підписання договору до: {{ `”${useDate(protocol?.contract_enddate)}”` }} -->
+            Підписання договору до: {{ `”${useDate(protocol?.contract_enddate)}”` }}
           </li>
           <li class="text-white leading-[120%] text-[14px] font-medium">
             Посилання Прозорро:
