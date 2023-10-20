@@ -52,6 +52,12 @@ const changeEndDate = (to: any) => {
   datepicker.value?.closeMenu();
 };
 
+const clearDate = () => {
+  fromDate.value = "";
+  toDate.value = "";
+  onChangeDate();
+};
+
 const onChangeDate = () => {
   let value = "";
   props.inputType.forEach((type: string, index: number) => {
@@ -76,6 +82,7 @@ const onChangeDate = () => {
       @range-start="changeStartDate"
       @range-end="changeEndDate"
       @update:model-value="onChangeDate"
+      @cleared="clearDate"
       range
       locale="uk"
       ref="datepicker"
