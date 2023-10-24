@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import UiButton from "../ui/UiButton.vue";
+import AuctionHistory from "./AuctionHistory.vue";
 import { useSettingsStore } from "../../stores";
 import { computed, ref, watch } from "vue";
 import { useDate } from "../../utils/useDate";
@@ -10,8 +11,13 @@ const props = defineProps<{
   isModal: boolean;
   client: any;
 }>();
+const displayedComponent = ref("card");
+
+const switchComponent = (value: "card" | "AuctionHistory") => {
+  displayedComponent.value = value;
+};
+
 const emits = defineEmits(["closeModal", "updateClients"]);
-console.log(props.client);
 
 const closeModal = () => {
   emits("closeModal");
@@ -19,11 +25,12 @@ const closeModal = () => {
 const comment = ref(props.client?.comment);
 
 watch(
-  () => props.client , 
-  () => { 
-    comment.value = props.client.comment
-  }, {deep: true}
-)
+  () => props.client,
+  () => {
+    comment.value = props.client.comment;
+  },
+  { deep: true }
+);
 
 const onLeaveComment = () => {
   const token = localStorage.getItem("token");
@@ -46,16 +53,16 @@ const onLeaveComment = () => {
 
 <template>
   <div
-    class="fixed max-w-[720px] w-full h-[95%] overflow-scroll no_scroll_bar bg-primary-500 z-20 bottom-0 right-[-110%] rounded-t-[15px] duration-300"
+    class="fixed max-w-[720px] px-[38px] w-full h-[95%] overflow-scroll no_scroll_bar bg-primary-500 z-20 bottom-0 right-[-110%] rounded-t-[15px] duration-300"
     :class="{ '!right-0': isModal }"
   >
     <button
       @click="closeModal"
-      class="inline-block my-[28px] mx-[17px] text-[20px] text-white font-medium"
+      class="inline-block my-[28px] text-[20px] text-white font-medium"
     >
       &lt;&lt;
     </button>
-    <div class="mt-[25px] px-[38px]">
+    <div v-if="displayedComponent === 'card'" class="mt-[25px]">
       <div class="flex items-center gap-[33px]">
         <h4 class="text-[26px] md:text-[36px] font-light">Карта клієнта</h4>
         <svg
@@ -140,12 +147,29 @@ const onLeaveComment = () => {
               placeholder="Вводьте текст..."
             ></textarea>
           </div>
-          <UiButton class="mt-3 !text-[12px] !py-[10px] !px-[10px]"
+          <UiButton
+            class="mt-3 max-w-[200px] w-full !text-[12px] !py-[10px] !px-[10px]"
             >Залишити коментар</UiButton
           >
         </form>
       </div>
     </div>
+    <AuctionHistory
+      :client="client"
+      v-if="displayedComponent === 'AuctionHistory'"
+    ></AuctionHistory>
+    <UiButton
+      v-if="displayedComponent === 'card'"
+      @click="switchComponent('AuctionHistory')"
+      class="mt-3 max-w-[200px] w-full !text-[12px] !py-[10px] !px-[10px]"
+      >Історія аукціонів</UiButton
+    >
+    <UiButton
+      v-if="displayedComponent === 'AuctionHistory'"
+      @click="switchComponent('card')"
+      class="mt-3 max-w-[200px] w-full !text-[12px] !py-[10px] !px-[10px]"
+      >Картка клієнта</UiButton
+    >
   </div>
 </template>
 
