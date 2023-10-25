@@ -12,6 +12,10 @@
   .custom_no_scroll_bar {
     scrollbar-color: rgb(115, 115, 115) rgb(198, 198, 198);
   }
+  .custom_no_scroll_bar {
+    scrollbar-width: 7px;
+    scrollbar-color: #264233 #264233;
+  }
   .custom_no_scroll_bar::-webkit-scrollbar {
     width: 0;
   }

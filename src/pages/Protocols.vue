@@ -304,13 +304,13 @@ fetchProtocols();
           <div class="text-white text-[14px] flex items-center gap-[10px]">
             <label
               for="countries"
-              class="block text-sm whitespace-nowrap font-medium text-gray-900 dark:text-white"
+              class="block text-sm whitespace-nowrap font-medium text-white dark:text-white"
               >Елементів на сторінці:</label
             >
             <select
               @change="($event: any) => filters.perPage = $event.target.value"
               id="countries"
-              class="pr-[40px] bg-primary-600 border-none focus:shadow-none"
+              class="pr-[40px] bg-primary-600 text-white border-none focus:shadow-none"
             >
               <option selected>{{ filters.perPage }}</option>
               <option value="2">2</option>
@@ -322,15 +322,11 @@ fetchProtocols();
           <div class="flex items-center gap-[10px]">
             <!-- Help text -->
             <span class="text-sm text-white">
-              <span class="text-gray-900 dark:text-white">{{
-                startRange
-              }}</span>
+              <span class="text-white dark:text-white">{{ startRange }}</span>
               -
-              <span class="text-gray-900 dark:text-white">{{ endRange }}</span>
+              <span class="text-white dark:text-white">{{ endRange }}</span>
               з
-              <span class="text-gray-900 dark:text-white">{{
-                totalClients
-              }}</span>
+              <span class="text-white dark:text-white">{{ totalClients }}</span>
             </span>
             <!-- Buttons -->
             <div class="inline-flex mt-2 xs:mt-0">

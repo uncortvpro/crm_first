@@ -4,7 +4,7 @@ import NavigationItem from "../components/common/NavigationItem.vue";
 
 <template>
   <div
-    class="w-full h-full py-[29px] flex-1 px-[11px] md:px-[20px] md:py-[69px] flex flex-col"
+    class="w-full h-full pt-[29px] flex-1 px-[11px] md:px-[20px] md:pt-[69px] flex flex-col"
   >
     <div class="flex-1 flex gap-[10px] md:gap-[30px] h-full">
       <div
@@ -84,7 +84,7 @@ import NavigationItem from "../components/common/NavigationItem.vue";
         </NavigationItem>
       </div>
       <div
-        class="flex-1 flex flex-col h-full overflow-auto custom_no_scroll_bar pr-[5px]"
+        class="flex-1 flex flex-col h-full overflow-auto custom_no_scroll_bar pb-[30px] pr-[5px]"
       >
         <router-view> </router-view>
       </div>

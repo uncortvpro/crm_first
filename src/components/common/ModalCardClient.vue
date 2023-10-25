@@ -53,7 +53,7 @@ const onLeaveComment = () => {
 
 <template>
   <div
-    class="fixed max-w-[720px] px-[38px] w-full h-[95%] overflow-scroll no_scroll_bar bg-primary-500 z-20 bottom-0 right-[-110%] rounded-t-[15px] duration-300"
+    class="fixed max-w-[720px] px-[38px] pb-[20px] w-full h-[95%] overflow-x-hidden overflow-scroll custom_no_scroll_bar bg-primary-500 z-20 bottom-0 right-[-110%] rounded-t-[15px] duration-300"
     :class="{ '!right-0': isModal }"
   >
     <button
