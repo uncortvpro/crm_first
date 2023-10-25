@@ -138,12 +138,12 @@ const onLeaveComment = () => {
         </ul>
         <form action="#" @submit.prevent="onLeaveComment">
           <div
-            class="flex flex-col h-[140px] gap-[10px] bg-primary-700 rounded-[10px] mt-[20px] shadow-inner shadow-primary-800 py-[14px] px-[16px]"
+            class="flex flex-col h-[120px]] gap-[10px] bg-primary-700 rounded-[10px] mt-[20px] shadow-inner shadow-primary-800 py-[14px] px-[16px]"
           >
             <p class="text-white text-[14px] font-medium">Коментар:</p>
             <textarea
               v-model="comment"
-              class="bg-transparent resize-none flex-1 border-none placeholder:text-white text-[14px] font-medium focus:ring-0 p-0"
+              class="bg-transparent resize-none  flex-1 border-none placeholder:text-white text-[14px] font-medium focus:ring-0 p-0"
               placeholder="Вводьте текст..."
             ></textarea>
           </div>
