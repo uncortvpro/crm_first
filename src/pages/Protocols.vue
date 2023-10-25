@@ -36,7 +36,7 @@ const isFailedToken = (message: string) => authStore.isFailedToken(message);
 
 const filters = reactive({
   page: 1,
-  perPage: 9,
+  perPage: '10',
   keywords: "",
   code: "",
   newstatus: "",
@@ -313,10 +313,10 @@ fetchProtocols();
               class="pr-[40px] bg-primary-600 text-white border-none focus:shadow-none"
             >
               <option selected>{{ filters.perPage }}</option>
-              <option value="2">2</option>
-              <option value="5">5</option>
-              <option value="7">7</option>
-              <option value="9">9</option>
+              <option v-if="filters.perPage !== '10'" value="10">10</option>
+              <option v-if="filters.perPage !== '25'" value="25">25</option>
+              <option v-if="filters.perPage !== '50'" value="50">50</option>
+              <option v-if="filters.perPage !== '100'" value="100">100</option>
             </select>
           </div>
           <div class="flex items-center gap-[10px]">
