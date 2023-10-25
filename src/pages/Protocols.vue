@@ -304,7 +304,7 @@ fetchProtocols();
           <div class="text-white text-[14px] flex items-center gap-[10px]">
             <label
               for="countries"
-              class="block text-sm whitespace-nowrap font-medium text-white dark:text-white"
+              class="block text-sm whitespace-nowrap font-medium text-white"
               >Елементів на сторінці:</label
             >
             <select
@@ -322,11 +322,11 @@ fetchProtocols();
           <div class="flex items-center gap-[10px]">
             <!-- Help text -->
             <span class="text-sm text-white">
-              <span class="text-white dark:text-white">{{ startRange }}</span>
+              <span class="text-white">{{ startRange }}</span>
               -
-              <span class="text-white dark:text-white">{{ endRange }}</span>
+              <span class="text-white">{{ endRange }}</span>
               з
-              <span class="text-white dark:text-white">{{ totalClients }}</span>
+              <span class="text-white">{{ totalClients }}</span>
             </span>
             <!-- Buttons -->
             <div class="inline-flex mt-2 xs:mt-0">
