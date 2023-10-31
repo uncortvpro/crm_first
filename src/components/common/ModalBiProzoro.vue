@@ -26,9 +26,7 @@ const comment = ref(props.client?.comment);
 watch(
   () => props.client,
   () => {
-    if (props.client?.comment) {
-      comment.value = props.client?.comment;
-    }
+    comment.value = props.client?.comment;
   },
   { deep: true }
 );
