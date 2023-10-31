@@ -28,7 +28,7 @@
     border-radius: 20px;
   }
   * {
-    line-height: 100%;
+    line-height: 120%;
   }
   .hover_svg_primary_700 svg {
     fill: #264233;

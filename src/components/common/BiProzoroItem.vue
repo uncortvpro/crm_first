@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { useDate } from "../../utils/useDate";
-
 const props = defineProps<{
   client: any;
 }>();
 const emits = defineEmits(["switchModal", "setCurrentIdCard"]);
 
 const openModal = () => {
-  emits("setCurrentIdCard", props.client.id);
+  emits("setCurrentIdCard", props.client._id.$oid);
   emits("switchModal");
 };
 </script>
@@ -15,34 +13,31 @@ const openModal = () => {
 <template>
   <tr class="border-b border-primary-100">
     <td
-      class="text-[14px] text-light font-normal truncate max-w-[300px] whitespace-nowrap p-[20px]"
+      class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"
+    >
+      <button class="p-0 truncate w-full" @click="openModal">
+        {{ client?.name }}
+      </button>
+    </td>
+    <td
+      class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"
     >
       {{ client?.code }}
     </td>
     <td
       class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"
     >
-      <button class="p-0" @click="openModal">{{ client?.short_name }}</button>
+      {{ client?.representative }}
     </td>
     <td
       class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"
     >
-      {{ client?.login }}
+      {{ client?.phone }}
     </td>
     <td
       class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"
     >
-      {{ client?.telephone }}
-    </td>
-    <td
-      class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"
-    >
-      {{ useDate(client?.register_date) }}
-    </td>
-    <td
-      class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"
-    >
-      {{ useDate(client?.create_date) }}
+      {{ client?.email }}
     </td>
     <td
       class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"

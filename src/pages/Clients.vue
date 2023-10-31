@@ -12,7 +12,7 @@ const router = useRouter();
 const settingsStore = useSettingsStore();
 const authStore = useAuthStore();
 const API_URL = computed(() => settingsStore.API_URL);
-const clients = ref<any[]>();
+const clients = ref<any[]>([]);
 const endRange = ref();
 const startRange = ref();
 const totalClients = ref();
@@ -140,7 +140,7 @@ fetchClients();
 <template>
   <div class="flex-1 overflow-x-hidden md:overflow-x-visible">
     <ModalCardClient
-      v-if="currentIdCard"
+      v-if="getCurrentClient"
       :isModal="isCardClient"
       :client="getCurrentClient"
       @closeModal="switchCard(false)"

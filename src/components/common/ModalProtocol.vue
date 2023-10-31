@@ -21,7 +21,9 @@ const comment = ref(props.protocol?.comment);
 watch(
   () => props.protocol,
   () => {
-    comment.value = props.protocol.comment;
+    if(props.protocol.comment) {
+      comment.value = props.protocol.comment; 
+    }
   },
   { deep: true }
 );

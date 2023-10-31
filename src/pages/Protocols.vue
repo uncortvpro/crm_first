@@ -13,7 +13,7 @@ const router = useRouter();
 const settingsStore = useSettingsStore();
 const authStore = useAuthStore();
 const API_URL = computed(() => settingsStore.API_URL);
-const protocols = ref<any[]>();
+const protocols = ref<any[]>([]);
 const endRange = ref();
 const startRange = ref();
 const totalClients = ref();
@@ -159,7 +159,7 @@ fetchProtocols();
 <template>
   <div class="flex-1 overflow-x-hidden md:overflow-x-visible">
     <ModalProtocol
-      v-if="currentIdProtocol"
+      v-if="getCurrentProtocol"
       :isModal="isProtocolModal"
       :protocol="getCurrentProtocol"
       @closeModal="switchProtocol(false)"

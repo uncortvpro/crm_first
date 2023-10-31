@@ -3,7 +3,6 @@ import UiButton from "../ui/UiButton.vue";
 import AuctionHistory from "./AuctionHistory.vue";
 import { useSettingsStore } from "../../stores";
 import { computed, ref, watch } from "vue";
-import { useDate } from "../../utils/useDate";
 
 const settingsStore = useSettingsStore();
 const API_URL = computed(() => settingsStore.API_URL);
@@ -27,21 +26,23 @@ const comment = ref(props.client?.comment);
 watch(
   () => props.client,
   () => {
-    comment.value = props.client?.comment;
+    if (props.client?.comment) {
+      comment.value = props.client?.comment;
+    }
   },
   { deep: true }
 );
 
 const onLeaveComment = () => {
   const token = localStorage.getItem("token");
-  fetch(`${API_URL.value}/add_comment`, {
+  fetch(`${API_URL.value}/add_comment_biprozorro`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
       access_token: token,
-      id: props.client.id,
+      code: props.client.code,
       comment: comment.value,
     }),
   }).then(() => {
@@ -82,7 +83,7 @@ const onLeaveComment = () => {
       </div>
       <div class="mt-[23px] max-w-[482px]">
         <p class="text-white text-[14px] font-medium px-[16px] py-[6px]">
-          ID Клієнта: ”{{ client.id }}”
+          Ім'я: ”{{ client.name }}”
         </p>
         <ul
           class="px-[16px] flex flex-col gap-[12px] py-[10px] bg-primary-700 rounded-[10px] shadow-inner shadow-primary-800"
@@ -91,49 +92,13 @@ const onLeaveComment = () => {
             Код: {{ `”${client.code}”` }}
           </li>
           <li class="text-white text-[14px] font-medium">
-            Коротке ім'я: {{ `”${client.short_name}”` }}
+            Представник: {{ `”${client.representative}”` }}
           </li>
           <li class="text-white text-[14px] font-medium">
-            Повне ім'я: {{ `”${client.full_name}”` }}
+            Телефон: {{ `”${client.phone}”` }}
           </li>
           <li class="text-white text-[14px] font-medium">
-            Логін: {{ `”${client.login}”` }}
-          </li>
-          <li class="text-white text-[14px] font-medium">
-            Телефон: {{ `”${client.telephone}”` }}
-          </li>
-          <li class="text-white text-[14px] font-medium">
-            Країна: {{ `”${client.countryName}”` }}
-          </li>
-          <li class="text-white text-[14px] font-medium">
-            Поштовий індекс: {{ `”${client.postalCode}”` }}
-          </li>
-          <li class="text-white text-[14px] font-medium">
-            Область: {{ `”${client.region}”` }}
-          </li>
-          <li class="text-white text-[14px] font-medium">
-            Населений пункт: {{ `”${client.locality}”` }}
-          </li>
-          <li class="text-white text-[14px] font-medium">
-            Адреса в населеному пункті: {{ `”${client.streetAddress}”` }}
-          </li>
-          <li class="text-white text-[14px] font-medium">
-            IBAN: {{ `”${client.iban}”` }}
-          </li>
-          <li class="text-white text-[14px] font-medium">
-            ПІБ Керівника: {{ `”${client?.mainPP_name}”` }}
-          </li>
-          <li class="text-white text-[14px] font-medium">
-            Посада керівника: {{ `”${client.mainPP_position}”` }}
-          </li>
-          <li class="text-white text-[14px] font-medium">
-            Дата реєстрації: {{ `”${useDate(client.register_date)}”` }}
-          </li>
-          <li class="text-white text-[14px] font-medium">
-            Дата створення: {{ `”${useDate(client.create_date)}”` }}
-          </li>
-          <li class="text-white text-[14px] font-medium">
-            Стан: {{ `”${client.StateText}”` }}
+            Email: {{ `”${client.email}”` }}
           </li>
         </ul>
         <form action="#" @submit.prevent="onLeaveComment">
@@ -143,7 +108,7 @@ const onLeaveComment = () => {
             <p class="text-white text-[14px] font-medium">Коментар:</p>
             <textarea
               v-model="comment"
-              class="bg-transparent resize-none  flex-1 border-none placeholder:text-white text-[14px] font-medium focus:ring-0 p-0"
+              class="bg-transparent resize-none flex-1 border-none placeholder:text-white text-[14px] font-medium focus:ring-0 p-0"
               placeholder="Вводьте текст..."
             ></textarea>
           </div>
