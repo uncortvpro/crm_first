@@ -23,11 +23,11 @@ const openModal = () => {
     <td
       class="text-[14px] text-light font-normal truncate max-w-[300px] whitespace-nowrap p-[20px]"
     >
-      <a :href="protocol.link_gc">{{ protocol.tenderID }}</a>
+      <a class="underline" :href="protocol.link_gc">{{ protocol.tenderID }}</a>
     </td>
-    <td class="text-[14px] text-light font-normal p-[20px]">
+    <td class="text-[14px] truncate max-w-[300px] text-light font-normal p-[20px]">
       <button
-        class="p-0 truncate whitespace-nowrap max-w-[350px]"
+        class="p-0 inline-block underline whitespace-nowrap "
         @click="openModal"
       >
         {{ protocol.short_name }}

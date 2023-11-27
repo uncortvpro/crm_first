@@ -3,18 +3,30 @@ import UiInput from "../ui/UiInput.vue";
 import { ref, watch } from "vue";
 
 const props = defineProps<{
-  placeholder: string;
-  type: any;
-  inputType: string;
+  placeholder?: string;
+  type?: any;
+  modelValue: string;
 }>();
 
-const emits = defineEmits(["changeValue"]);
+const emits = defineEmits(["update:modelValue"]);
 
 const value = ref("");
 
-watch(value, () => {
-  emits("changeValue", props.inputType, value.value), {deep: true};
-});
+watch(
+  value,
+  () => {
+    emits("update:modelValue", value.value);
+  },
+  { deep: true }
+);
+
+watch(
+  () => props.modelValue,
+  () => {
+    value.value = props.modelValue;
+  },
+  { deep: true }
+);
 </script>
 
 <template>

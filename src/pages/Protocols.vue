@@ -36,7 +36,7 @@ const isFailedToken = (message: string) => authStore.isFailedToken(message);
 
 const filters = reactive({
   page: 1,
-  perPage: '10',
+  perPage: "10",
   keywords: "",
   code: "",
   newstatus: "",
@@ -50,6 +50,25 @@ const filters = reactive({
   contractEnddateStart: "",
   contractEnddateEnd: "",
 });
+
+const onCleanFilters = () => {
+  filters.page = 1;
+  filters.perPage = "10";
+  filters.keywords = "";
+  filters.code = "";
+  filters.newstatus = "";
+  filters.tenderID = "";
+  filters.auctionDateStart = "";
+  filters.auctionDateEnd = "";
+  filters.newprotokolStart = "";
+  filters.newprotokolEnd = "";
+  filters.protocolEnddateStart = "";
+  filters.protocolEnddateEnd = "";
+  filters.contractEnddateStart = "";
+  filters.contractEnddateEnd = "";
+
+  fetchProtocols();
+};
 
 const changeFilters = (filterType: string, filterValue: any) => {
   switch (filterType) {
@@ -173,35 +192,33 @@ fetchProtocols();
             class="flex flex-col gap-[20px] md:grid md:grid-cols-3 lg:grid-cols-5 lg:items-end lg:justify-between lg:gap-[10px]"
           >
             <CommonInput
-              @changeValue="changeFilters"
-              inputType="keywords"
+              v-model="filters.keywords"
               class="shrink-1"
               placeholder=""
               type="text"
               >Ключове слово:</CommonInput
             >
             <DoubleCalendar
-              @changeValue="changeFilters"
-              :inputType="['auctionDateStart', 'auctionDateEnd']"
+              v-model:start="filters.auctionDateStart"
+              v-model:end="filters.auctionDateEnd"
               >Дата аукціону:</DoubleCalendar
             >
             <CommonInput
-              @changeValue="changeFilters"
-              inputType="tenderID"
+              v-model="filters.tenderID"
               class="shrink-1"
               placeholder=""
               type="text"
               >Аукціон</CommonInput
             >
             <CommonInput
-              @changeValue="changeFilters"
-              inputType="code"
+              v-model="filters.code"
               class="shrink-1"
               placeholder=""
               type="number"
               >Код учасника:</CommonInput
             >
             <CommonSelect
+              v-model="filters.newstatus"
               @changeValue="changeFilters"
               inputType="newstatus"
               :options="newStatusOptions"
@@ -212,39 +229,47 @@ fetchProtocols();
             >
             <div>
               <DoubleCalendar
-                @changeValue="changeFilters"
-                :inputType="['newprotokolStart', 'newprotokolEnd']"
+                v-model:start="filters.newprotokolStart"
+                v-model:end="filters.newprotokolEnd"
                 >Дата формування протоколу:</DoubleCalendar
               >
             </div>
             <div>
               <DoubleCalendar
-                @changeValue="changeFilters"
-                :inputType="['protocolEnddateStart', 'protocolEnddateEnd']"
+                v-model:start="filters.protocolEnddateStart"
+                v-model:end="filters.protocolEnddateEnd"
                 >Підписання протоколу до:</DoubleCalendar
               >
             </div>
             <div>
               <DoubleCalendar
-                @changeValue="changeFilters"
-                :inputType="['contractEnddateStart', 'contractEnddateEnd']"
+                v-model:start="filters.contractEnddateStart"
+                v-model:end="filters.contractEnddateEnd"
                 >Підписання договору до:</DoubleCalendar
               >
             </div>
-            <div class="md:col-span-3 items-end lg:col-span-2 flex justify-end">
+            <div
+              class="md:col-span-2 gap-[10px] flex-col sm:flex-row items-end lg:col-span-2 flex justify-end"
+            >
               <UiButton
                 class="!rounded-[26px] !text-[14px] !py-[9px] !px-[45px]"
                 >Пошук</UiButton
               >
             </div>
+            <UiButton
+              type="button"
+              @click="onCleanFilters"
+              class="!rounded-[26px] !text-[14px] !py-[9px] !px-[45px] col-span-2 lg:col-span-5 w-fit justify-self-end"
+              >Очистити фільтри</UiButton
+            >
           </div>
         </form>
       </div>
       <div
-        class="bg-primary-600 rounded-[20px] mt-[59px] pb-[30px] px-[5px] md:px-[15px] max-w-[75vw] lg:max-w-[100%] xl:max-w-[100%] overflow-x-auto custom_no_scroll_bar"
+        class="bg-primary-600 rounded-[20px] mt-[59px] pb-[30px] px-[5px] md:px-[15px] max-w-[75vw] lg:max-w-[100%] xl:max-w-[100%] overflow-auto lg:overflow-visible custom_no_scroll_bar"
       >
-        <table class="table-auto w-full text-left border-collapse">
-          <thead>
+        <table class="table-auto lg:table-fixed w-full text-left border-collapse">
+          <thead class="top-[0px] sticky z-10 bg-primary-600" >
             <tr>
               <th
                 class="text-[14px] font-medium text-white whitespace-nowrap p-[30px] px-[20px]"
@@ -269,7 +294,7 @@ fetchProtocols();
               <th
                 class="text-[14px] font-medium whitespace-nowrap text-white p-[30px] px-[20px]"
               >
-                Дата формування протоколу
+                Формування протоколу
               </th>
               <th
                 class="text-[14px] font-medium whitespace-nowrap text-white p-[30px]"

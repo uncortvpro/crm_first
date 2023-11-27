@@ -2,7 +2,7 @@
 
 <template>
   <div
-    class="h-[100vh] w-full bg-primary-800 flex flex-col text-white overflow-hidden"
+    class="min-h-[100vh] min-w-full bg-primary-800 ov flex flex-col text-white"
   >
     <router-view> </router-view>
   </div>

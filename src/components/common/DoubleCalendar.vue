@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import type { DatePickerInstance } from "@vuepic/vue-datepicker";
 
 const props = defineProps<{
-  inputType: string[];
+  start: any;
+  end: any;
 }>();
-const emits = defineEmits(["changeValue"]);
+const emits = defineEmits(["update:start", "update:end"]);
 
 const fromDate = ref("");
 const toDate = ref("");
@@ -59,17 +60,19 @@ const clearDate = () => {
 };
 
 const onChangeDate = () => {
-  let value = "";
-  props.inputType.forEach((type: string, index: number) => {
-    if (index === 0) {
-      value = fromDate.value;
-    }
-    if (index === 1) {
-      value = toDate.value;
-    }
-    emits("changeValue", type, value);
-  });
+  emits("update:start", fromDate.value);
+  emits("update:end", toDate.value);
 };
+
+watch(
+  [() => props.start, () => props.end],
+  () => {
+    if (props.start === "" && props.end === "") {
+      date.value = "";
+    }
+  },
+  { deep: true }
+);
 </script>
 
 <template>

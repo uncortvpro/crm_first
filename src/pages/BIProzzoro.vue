@@ -43,6 +43,20 @@ const filters = reactive({
   keywords: "",
 });
 
+const onCleanFilters = () => {
+  filters.page = 1;
+  filters.perPage = "10";
+  filters.keywords = "";
+  filters.code = "";
+  filters.name = "";
+  filters.telephone = "";
+  filters.email = "";
+  filters.auctions = "";
+  filters.representative = "";
+
+  fetchClients();
+};
+
 const changeFilters = (filterType: string, filterValue: any) => {
   switch (filterType) {
     case "page":
@@ -103,7 +117,6 @@ const fetchClients = () => {
         router.push({ name: "Authorize" });
         return false;
       }
-      console.log(res);
 
       clients.value = res.clients;
       endRange.value = res.end_range;
@@ -144,8 +157,7 @@ fetchClients();
             class="flex flex-col gap-[20px] md:grid md:grid-cols-3 lg:grid-cols-5 lg:items-end lg:justify-between lg:gap-[10px]"
           >
             <CommonInput
-              @changeValue="changeFilters"
-              inputType="name"
+              v-model="filters.name"
               class="shrink-1"
               placeholder="..."
               type="text"
@@ -153,8 +165,7 @@ fetchClients();
               Ім'я:</CommonInput
             >
             <CommonInput
-              @changeValue="changeFilters"
-              inputType="code"
+              v-model="filters.code"
               class="shrink-1"
               placeholder="10..."
               type="number"
@@ -162,24 +173,21 @@ fetchClients();
               Код:</CommonInput
             >
             <CommonInput
-              @changeValue="changeFilters"
-              inputType="representative"
+              v-model="filters.representative"
               class="shrink-1"
               placeholder="Дмитро..."
               type="text"
               >Представник:</CommonInput
             >
             <CommonInput
-              @changeValue="changeFilters"
-              inputType="telephone"
+              v-model="filters.telephone"
               class="shrink-1"
               placeholder="+38 0..."
               type="number"
               >Телефон:</CommonInput
             >
             <CommonInput
-              @changeValue="changeFilters"
-              inputType="email"
+              v-model="filters.email"
               class="shrink-1"
               placeholder="..."
               type="email"
@@ -187,35 +195,41 @@ fetchClients();
               E-mail:</CommonInput
             >
             <CommonInput
-              @changeValue="changeFilters"
-              inputType="keywords"
+              v-model="filters.keywords"
               class="shrink-1"
               placeholder="..."
               type="text"
               >Ключове слово:</CommonInput
             >
             <CommonInput
-              @changeValue="changeFilters"
-              inputType="auctions"
+              v-model="filters.auctions"
               class="shrink-1"
               placeholder="..."
               type="text"
               >Аукціон:</CommonInput
             >
-            <div class="md:col-span-2 items-end lg:col-span-3 flex justify-end">
+            <div
+              class="md:col-span-2 gap-[10px] flex-col sm:flex-row items-end lg:col-span-3 flex justify-end"
+            >
               <UiButton
                 class="!rounded-[26px] !text-[14px] !py-[9px] !px-[45px]"
                 >Пошук</UiButton
+              >
+              <UiButton
+                type="button"
+                @click="onCleanFilters"
+                class="!rounded-[26px] !text-[14px] !py-[9px] !px-[45px]"
+                >Очистити фільтри</UiButton
               >
             </div>
           </div>
         </form>
       </div>
       <div
-        class="bg-primary-600 rounded-[20px] mt-[59px] pb-[30px] px-[5px] md:px-[15px] max-w-[75vw] lg:max-w-[100%] xl:max-w-[100%] overflow-x-auto custom_no_scroll_bar"
+        class="bg-primary-600 overflow-auto lg:overflow-visible rounded-[20px] mt-[59px] pb-[30px] px-[5px] md:px-[15px] w-full custom_no_scroll_bar"
       >
-        <table class="table-auto w-full text-left border-collapse">
-          <thead>
+        <table class="table-auto lg:table-fixed w-full text-left border-collapse">
+          <thead class="top-[0px] sticky z-10 bg-primary-600">
             <tr>
               <th
                 class="text-[14px] font-medium text-white whitespace-nowrap p-[30px] px-[20px]"

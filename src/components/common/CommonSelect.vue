@@ -6,15 +6,30 @@ const props = defineProps<{
   type: any;
   inputType: string;
   options: string[];
+  modelValue: any;
 }>();
 
-const emits = defineEmits(["changeValue"]);
+const emits = defineEmits(["update:modelValue"]);
 
 const value = ref("");
 
-watch(value, () => {
-  emits("changeValue", props.inputType, value.value), { deep: true };
-});
+watch(
+  value,
+  () => {
+    emits("update:modelValue", value.value);
+  },
+  { deep: true }
+);
+
+watch(
+  () => props.modelValue,
+  () => {
+    console.log('qwdwq');
+    
+    value.value = props.modelValue;
+  },
+  { deep: true }
+);
 </script>
 
 <template>
@@ -24,10 +39,12 @@ watch(value, () => {
     <select
       @change="($event: any) => value = $event.target.value"
       id="countries"
-      class="rounded-[26px] border bg-transparent px-[20px] pr-[30px] h-[38px]  border-primary-50  remove_arrow_input"
+      class="rounded-[26px] border bg-transparent px-[20px] pr-[30px] h-[38px] border-primary-50 remove_arrow_input"
     >
       <option class="bg-primary-600" selected value="">Статус</option>
-      <option class="bg-primary-600" v-for="option in options" :value="option">{{ option }}</option>
+      <option class="bg-primary-600" v-for="option in options" :value="option">
+        {{ option }}
+      </option>
     </select>
   </label>
 </template>

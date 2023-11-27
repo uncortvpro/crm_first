@@ -6,9 +6,9 @@ import NavigationItem from "../components/common/NavigationItem.vue";
   <div
     class="w-full h-full pt-[29px] flex-1 px-[11px] md:px-[20px] md:pt-[69px] flex flex-col"
   >
-    <div class="flex-1 flex gap-[10px] md:gap-[30px] h-full">
+    <div class="grid grid-cols-12 gap-[10px] md:gap-[30px] h-full">
       <div
-        class="w-[60px] bg-primary-700 rounded-[10px] flex flex-col items-center gap-2 max-h-[651px]"
+        class="w-[60px] col-span-1 top-0 sticky bg-primary-700 rounded-[10px] flex flex-col items-center gap-2 max-h-[651px]"
       >
         <div
           class="max-w-[60px] flex self-stretch justify-center py-[10px] bg-primary-600 rounded-[10px]"
@@ -84,7 +84,7 @@ import NavigationItem from "../components/common/NavigationItem.vue";
         </NavigationItem>
       </div>
       <div
-        class="flex-1 flex flex-col h-full overflow-auto custom_no_scroll_bar pb-[30px] pr-[5px]"
+        class="flex-1 col-span-11 flex flex-col h-full  pb-[30px] pr-[5px]"
       >
         <router-view> </router-view>
       </div>

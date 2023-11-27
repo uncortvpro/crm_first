@@ -15,7 +15,7 @@ const openModal = () => {
     <td
       class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"
     >
-      <button class="p-0 truncate w-full" @click="openModal">
+      <button class="p-0 underline truncate w-full" @click="openModal">
         {{ client?.name }}
       </button>
     </td>

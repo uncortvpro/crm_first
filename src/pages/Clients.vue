@@ -4,7 +4,7 @@ import UiButton from "../components/ui/UiButton.vue";
 import DoubleCalendar from "../components/common/DoubleCalendar.vue";
 import ModalCardClient from "../components/common/ModalCardClient.vue";
 import ClientItem from "../components/common/ClientItem.vue";
-import { ref, computed, reactive, watch } from "vue";
+import { ref, computed, watch } from "vue";
 import { useSettingsStore, useAuthStore } from "../stores";
 import { useRouter } from "vue-router";
 
@@ -32,54 +32,72 @@ const getCurrentClient = computed(() =>
 
 const isFailedToken = (message: string) => authStore.isFailedToken(message);
 
-const filters = reactive({
+const filters = ref({
   page: 1,
-  perPage: '10',
+  perPage: "10",
   keywords: "",
   code: "",
   name: "",
   telephone: "",
   email: "",
+  comment: "",
   registerDateStart: "",
   registerDateEnd: "",
   createDateStart: "",
   createDateEnd: "",
 });
 
+const onCleanFilters = () => {
+  filters.value.page = 1;
+  filters.value.perPage = "10";
+  filters.value.keywords = "";
+  filters.value.code = "";
+  filters.value.name = "";
+  filters.value.telephone = "";
+  filters.value.email = "";
+  filters.value.registerDateStart = "";
+  filters.value.registerDateEnd = "";
+  filters.value.createDateStart = "";
+  filters.value.createDateEnd = "";
+  filters.value.comment = "";
+
+  fetchClients();
+};
+
 const changeFilters = (filterType: string, filterValue: any) => {
   switch (filterType) {
     case "page":
-      filters[filterType] = filterValue;
+      filters.value[filterType] = filterValue;
       break;
     case "perPage":
-      filters[filterType] = filterValue;
+      filters.value[filterType] = filterValue;
       break;
     case "keywords":
-      filters[filterType] = filterValue;
+      filters.value[filterType] = filterValue;
       break;
     case "code":
-      filters[filterType] = filterValue;
+      filters.value[filterType] = filterValue;
       break;
     case "name":
-      filters[filterType] = filterValue;
+      filters.value[filterType] = filterValue;
       break;
     case "telephone":
-      filters[filterType] = filterValue;
+      filters.value[filterType] = filterValue;
       break;
     case "email":
-      filters[filterType] = filterValue;
+      filters.value[filterType] = filterValue;
       break;
     case "registerDateStart":
-      filters[filterType] = filterValue;
+      filters.value[filterType] = filterValue;
       break;
     case "registerDateEnd":
-      filters[filterType] = filterValue;
+      filters.value[filterType] = filterValue;
       break;
     case "createDateStart":
-      filters[filterType] = filterValue;
+      filters.value[filterType] = filterValue;
       break;
     case "createDateEnd":
-      filters[filterType] = filterValue;
+      filters.value[filterType] = filterValue;
       break;
 
     default:
@@ -96,17 +114,18 @@ const fetchClients = () => {
     },
     body: JSON.stringify({
       access_token: token,
-      page: +filters.page,
-      per_page: +filters.perPage,
-      keyword: filters.keywords,
-      code: filters.code,
-      name: filters.name,
-      telephone: filters.telephone,
-      email: filters.email,
-      register_date_start: filters.registerDateStart,
-      register_date_end: filters.registerDateEnd,
-      create_date_start: filters.createDateStart,
-      create_date_end: filters.createDateEnd,
+      page: +filters.value.page,
+      per_page: +filters.value.perPage,
+      keyword: filters.value.keywords,
+      code: filters.value.code,
+      name: filters.value.name,
+      telephone: filters.value.telephone,
+      email: filters.value.email,
+      comment: filters.value.comment,
+      register_date_start: filters.value.registerDateStart,
+      register_date_end: filters.value.registerDateEnd,
+      create_date_start: filters.value.createDateStart,
+      create_date_end: filters.value.createDateEnd,
     }),
   })
     .then((res) => res.json())
@@ -127,7 +146,7 @@ const onSendFilters = () => {
 };
 
 watch(
-  [() => filters.page, () => filters.perPage],
+  [() => filters.value.page, () => filters.value.perPage],
   () => {
     fetchClients();
   },
@@ -154,73 +173,85 @@ fetchClients();
             class="flex flex-col gap-[20px] md:grid md:grid-cols-3 lg:grid-cols-5 lg:items-end lg:justify-between lg:gap-[10px]"
           >
             <CommonInput
-              @changeValue="changeFilters"
-              inputType="keywords"
+              v-model="filters.keywords"
               class="shrink-1"
               placeholder="ФОП..."
               type="text"
               >Ключове слово:</CommonInput
             >
             <CommonInput
-              @changeValue="changeFilters"
-              inputType="code"
+              v-model="filters.code"
               class="shrink-1"
               placeholder="10..."
               type="number"
               >Код:</CommonInput
             >
             <CommonInput
-              @changeValue="changeFilters"
-              inputType="name"
+              v-model="filters.name"
               class="shrink-1"
               placeholder="Дмитро..."
               type="text"
               >Ім’я користувача:</CommonInput
             >
             <CommonInput
-              @changeValue="changeFilters"
-              inputType="telephone"
+              v-model="filters.telephone"
               class="shrink-1"
               placeholder="+38 0..."
               type="number"
               >Телефон:</CommonInput
             >
             <CommonInput
-              @changeValue="changeFilters"
-              inputType="email"
+              v-model="filters.email"
               class="shrink-1"
               placeholder="..."
               type="email"
               >E-mail:</CommonInput
             >
+            <CommonInput
+              v-model="filters.comment"
+              class="shrink-1"
+              placeholder="..."
+              type="text"
+              >Коментар:</CommonInput
+            >
             <div>
               <DoubleCalendar
-                @changeValue="changeFilters"
-                :inputType="['registerDateStart', 'registerDateEnd']"
+                v-model:start="filters.registerDateStart"
+                v-model:end="filters.registerDateEnd"
                 >Дата реєстрації:</DoubleCalendar
               >
             </div>
             <div>
               <DoubleCalendar
-                @changeValue="changeFilters"
-                :inputType="['createDateStart', 'createDateEnd']"
+                v-model:start="filters.createDateStart"
+                v-model:end="filters.createDateEnd"
                 >Дата створення:</DoubleCalendar
               >
             </div>
-            <div class="md:col-span-2 items-end lg:col-span-3 flex justify-end">
+            <div
+              class="md:col-span-2 gap-[10px] flex-col sm:flex-row items-end lg:col-span-2 flex justify-end"
+            >
               <UiButton
                 class="!rounded-[26px] !text-[14px] !py-[9px] !px-[45px]"
                 >Пошук</UiButton
               >
             </div>
+            <UiButton
+              type="button"
+              @click="onCleanFilters"
+              class="!rounded-[26px] !text-[14px] !py-[9px] !px-[45px] col-span-2 lg:col-span-5 w-fit justify-self-end"
+              >Очистити фільтри</UiButton
+            >
           </div>
         </form>
       </div>
       <div
-        class="bg-primary-600 rounded-[20px] mt-[59px] pb-[30px] px-[5px] md:px-[15px] max-w-[75vw] lg:max-w-[100%] xl:max-w-[100%] overflow-x-auto custom_no_scroll_bar"
+        class="bg-primary-600 rounded-[20px] mt-[59px] pb-[30px] px-[5px] md:px-[15px] max-w-[75vw] lg:max-w-[100%] xl:max-w-[100%] overflow-auto lg:overflow-visible custom_no_scroll_bar"
       >
-        <table class="table-auto w-full text-left border-collapse">
-          <thead>
+        <table
+          class="table-auto lg:table-fixed w-full text-left border-collapse"
+        >
+          <thead class="top-[0px] sticky z-10 bg-primary-600">
             <tr>
               <th
                 class="text-[14px] font-medium text-white whitespace-nowrap p-[30px] px-[20px]"
