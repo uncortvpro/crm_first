@@ -6,6 +6,7 @@ const props = defineProps<{
   placeholder?: string;
   type?: any;
   modelValue: string;
+  required?: boolean;
 }>();
 
 const emits = defineEmits(["update:modelValue"]);
@@ -33,6 +34,7 @@ watch(
   <label class="text-[12px] flex flex-col gap-[7px]" for="">
     <span class="ml-[10px]"><slot /></span>
     <UiInput
+      :required="required"
       v-model="value"
       class="!h-[38px] !border-primary-50 placeholder:text-white remove_arrow_input"
       :placeholder="placeholder"

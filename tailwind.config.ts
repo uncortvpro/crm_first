@@ -20,6 +20,9 @@ export default <Partial<Config>>{
       raleway: ["Raleway", "sans"],
     },
     extend: {
+      gridTemplateColumns: {
+        'profile-grid': '60px auto',
+      },
       colors: {
         "vtd-primary": colors.sky, // Light mode Datepicker color
         "vtd-secondary": colors.gray, // Dark mode Datepicker color
@@ -35,7 +38,8 @@ export default <Partial<Config>>{
           700: "#264233",
           800: "#0D1C15",
         },
-        blue: '#606595'
+        blue: '#606595',
+        'dark-transparent': '#0000001f',
       },
       screens: {
         "is-hover": { raw: "(hover: hover)" },
