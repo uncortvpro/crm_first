@@ -37,7 +37,7 @@ defineProps<{
     >
       <UiButton
         @click="deleteAction"
-        class="!rounded-[26px] bg-primary-300 !text-[12px] !py-[7px] !px-[25px]"
+        class="!rounded-[26px] !bg-primary-500 hover:!bg-primary-700 !text-[12px] !py-[7px] !px-[25px]"
         >Видалити</UiButton
       >
     </td>
