@@ -226,7 +226,7 @@ fetchClients();
         </form>
       </div>
       <div
-        class="bg-primary-600 overflow-auto lg:overflow-visible rounded-[20px] mt-[59px] pb-[30px] px-[5px] md:px-[15px] w-full custom_no_scroll_bar"
+      class="bg-primary-600 rounded-[20px] mt-[59px] pb-[30px] px-[5px] md:px-[15px] max-w-[75vw] lg:max-w-[100%] xl:max-w-[100%] overflow-auto lg:overflow-visible custom_no_scroll_bar"
       >
         <table class="table-auto lg:table-fixed w-full text-left border-collapse">
           <thead class="top-[0px] sticky z-10 bg-primary-600">
