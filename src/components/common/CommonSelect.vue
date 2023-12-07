@@ -2,11 +2,11 @@
 import { ref, watch } from "vue";
 
 const props = defineProps<{
-  placeholder: string;
-  type: any;
-  inputType: string;
+  placeholder?: string;
+  type?: any;
+  inputType?: string;
   options: string[];
-  modelValue: any;
+  modelValue?: any;
 }>();
 
 const emits = defineEmits(["update:modelValue"]);
@@ -24,8 +24,6 @@ watch(
 watch(
   () => props.modelValue,
   () => {
-    console.log('qwdwq');
-    
     value.value = props.modelValue;
   },
   { deep: true }
@@ -41,7 +39,7 @@ watch(
       id="countries"
       class="rounded-[26px] border bg-transparent px-[20px] pr-[30px] h-[38px] border-primary-50 remove_arrow_input"
     >
-      <option class="bg-primary-600" selected value="">Статус</option>
+      <option class="bg-primary-600" selected value="">Виберіть варіант</option>
       <option class="bg-primary-600" v-for="option in options" :value="option">
         {{ option }}
       </option>

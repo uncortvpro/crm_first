@@ -4,10 +4,18 @@ import { computed } from "vue";
 
 const props = defineProps<{
   to: { name: string };
+  type?: string;
 }>();
 
 const route = useRoute();
-const isActive = computed(() => route.name === props.to.name);
+const isActive = computed(() => {
+  if (props.type === "Mailing") {
+    return route.name === "MailingSearch" || route.name === "SendMail"
+      ? true
+      : false;
+  }
+  return route.name === props.to.name;
+});
 </script>
 
 <template>
@@ -21,11 +29,10 @@ const isActive = computed(() => route.name === props.to.name);
     >
       <slot name="icon"></slot>
     </span>
-    <p
-      class="w-full break-words font-medium text-[10px] text-center mt-[6px]"
-    >
+    <p class="w-full break-words font-medium text-[10px] text-center mt-[6px]">
       <slot name="title"></slot>
     </p>
+    <slot name="dropdown"></slot>
   </router-link>
 </template>
 

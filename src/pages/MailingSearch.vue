@@ -136,7 +136,7 @@ fetchMailingList();
       Видалити?
     </UiModalWarning>
 
-    <h3 class="text-[26px] md:text-[36px] font-light">Розсилка</h3>
+    <h3 class="text-[26px] md:text-[36px] font-light">Список розсилки</h3>
     <form action="#" @submit.prevent="addMailingSearch" class="mt-[24px]">
       <div
         class="flex flex-col md:flex-row items-start md:items-end gap-[20px]"

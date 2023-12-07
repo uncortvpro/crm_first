@@ -2,7 +2,8 @@ import Authorize from './pages/Authorize.vue'
 import Profile from './pages/Profile.vue'
 import Clients from './pages/Clients.vue'
 import Protocols from './pages/Protocols.vue'
-import MailingList from './pages/MailingList.vue'
+import MailingSearch from './pages/MailingSearch.vue'
+import SendMail from './pages/SendMail.vue';
 import BIProzzoro from './pages/BIProzzoro.vue'
 
 import { useAuthStore } from './stores'
@@ -48,9 +49,14 @@ export const routes = [
         component: Protocols
       },
       {
-        name: "MailingList",
-        path: 'mailing_list',
-        component: MailingList
+        name: "MailingSearch",
+        path: 'mailing_search',
+        component: MailingSearch
+      },
+      {
+        name: "SendMail",
+        path: 'send_mail',
+        component: SendMail
       },
       {
         name: "BIProzzoro",
