@@ -226,9 +226,11 @@ fetchClients();
         </form>
       </div>
       <div
-      class="bg-primary-600 rounded-[20px] mt-[59px] pb-[30px] px-[5px] md:px-[15px] max-w-[75vw] lg:max-w-[100%] xl:max-w-[100%] overflow-auto lg:overflow-visible custom_no_scroll_bar"
+        class="bg-primary-600 rounded-[20px] mt-[59px] pb-[30px] px-[5px] md:px-[15px] max-w-[75vw] lg:max-w-[100%] xl:max-w-[100%] overflow-auto lg:overflow-visible custom_no_scroll_bar"
       >
-        <table class="table-auto lg:table-fixed w-full text-left border-collapse">
+        <table
+          class="table-auto lg:table-fixed w-full text-left border-collapse"
+        >
           <thead class="top-[0px] sticky z-10 bg-primary-600">
             <tr>
               <th
@@ -267,7 +269,7 @@ fetchClients();
             <BiProzoroItem
               v-for="client in clients"
               :client="client"
-              :key="client.code"
+              :key="client._id.$oid"
               @switchModal="switchCard(true)"
               @setCurrentIdCard="setCurrentIdCard"
             />

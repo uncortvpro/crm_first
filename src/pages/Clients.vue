@@ -143,6 +143,8 @@ const fetchClients = () => {
   })
     .then((res) => res.json())
     .then((res) => {
+      console.log(res);
+
       if (isFailedToken(res.message)) {
         router.push({ name: "Authorize" });
         return false;
@@ -322,7 +324,7 @@ fetchClients();
             <ClientItem
               v-for="client in clients"
               :client="client"
-              :key="client.code"
+              :key="client._id.$oid"
               @switchModal="switchCard(true)"
               @setCurrentIdCard="setCurrentIdCard"
             />

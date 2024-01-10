@@ -375,7 +375,7 @@ fetchProtocols();
             <ProtocolItem
               v-for="protocol in protocols"
               :protocol="protocol"
-              :key="protocol.code"
+              :key="protocol._id.$oid"
               @switchModal="switchProtocol(true)"
               @setCurrentIdProtocol="setCurrentIdProtocol"
             />

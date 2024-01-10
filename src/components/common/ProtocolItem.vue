@@ -47,7 +47,7 @@ const openModal = () => {
       :class="{
         'text-red-600':
           useCheckEndDate(protocol.protocol_enddate) &&
-          protocol.status === 'Очікується опублікування протоколу',
+          protocol.newstatus === 'Очікується опублікування протоколу',
       }"
     >
       {{ useDate(protocol.protocol_enddate) }}
@@ -57,7 +57,7 @@ const openModal = () => {
       :class="{
         'text-red-600':
           useCheckEndDate(protocol.contract_enddate) &&
-          protocol.status === 'Очікується підписання договору',
+          protocol.newstatus === 'Очікується підписання договору',
       }"
     >
       {{ useDate(protocol.contract_enddate) }}
@@ -65,7 +65,7 @@ const openModal = () => {
     <td
       class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"
       :class="{
-        'text-red-600': useCheckEndDate(protocol.sign_enddate) && protocol.status === 'Очікується опублікування протоколу',
+        'text-red-600': useCheckEndDate(protocol.sign_enddate) && protocol.newstatus === 'Очікується опублікування протоколу',
       }"
     >
       {{ useDate(protocol.sign_enddate) }}
