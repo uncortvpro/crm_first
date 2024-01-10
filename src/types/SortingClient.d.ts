@@ -1,0 +1,1 @@
+declare type SortingClient = "" | "register_date" | "create_date";

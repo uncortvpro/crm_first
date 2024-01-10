@@ -45,7 +45,7 @@ watch(
       Історія аукціонів Користувача:
     </h3>
     <p class="text-[28px] md:text-[30px] lg:text-[36px] font-light">
-      ФОП Курило Олег Іванович
+      {{ client?.short_name }}
     </p>
     <p class="text-white text-[14px] font-medium py-[6px] mt-[30px]">
       ID Клієнта: ”{{ client.id }}”

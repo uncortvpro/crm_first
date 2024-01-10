@@ -10,7 +10,7 @@ import NavigationItemMailingList from "./NavigationItemMailingList.vue";
     <div
       class="max-w-[60px] flex self-stretch justify-center py-[10px] bg-primary-600 rounded-[10px]"
     >
-      <span class="font-light text-[26px] md:text-[36px]">GK</span>
+      <span class="font-light text-[26px] md:text-[36px]">GC</span>
     </div>
     <NavigationItem :to="{ name: 'Clients' }">
       <template v-slot:icon>

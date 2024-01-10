@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { useDate } from "../../utils/useDate";
 import { useCheckEndDate } from "../../utils/useCheckEndDate";
-
 const props = defineProps<{
-  protocol: any;
+  protocol: Protocol;
 }>();
 const emits = defineEmits(["switchModal", "setCurrentIdProtocol"]);
 
@@ -35,9 +34,7 @@ const openModal = () => {
         {{ protocol.short_name }}
       </button>
     </td>
-    <td
-      class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"
-    >
+    <td class="text-[14px] text-light font-normal p-[20px]">
       {{ protocol.newstatus }}
     </td>
     <td
@@ -47,15 +44,31 @@ const openModal = () => {
     </td>
     <td
       class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"
-      :class="{ 'text-red-600': useCheckEndDate(protocol.protocol_enddate) }"
+      :class="{
+        'text-red-600':
+          useCheckEndDate(protocol.protocol_enddate) &&
+          protocol.status === 'Очікується опублікування протоколу',
+      }"
     >
       {{ useDate(protocol.protocol_enddate) }}
     </td>
     <td
       class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"
-      :class="{ 'text-red-600': useCheckEndDate(protocol.contract_enddate) }"
+      :class="{
+        'text-red-600':
+          useCheckEndDate(protocol.contract_enddate) &&
+          protocol.status === 'Очікується підписання договору',
+      }"
     >
       {{ useDate(protocol.contract_enddate) }}
+    </td>
+    <td
+      class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"
+      :class="{
+        'text-red-600': useCheckEndDate(protocol.sign_enddate) && protocol.status === 'Очікується опублікування протоколу',
+      }"
+    >
+      {{ useDate(protocol.sign_enddate) }}
     </td>
     <td
       class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"

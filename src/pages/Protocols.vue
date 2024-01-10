@@ -5,6 +5,7 @@ import UiButton from "../components/ui/UiButton.vue";
 import DoubleCalendar from "../components/common/DoubleCalendar.vue";
 import ModalProtocol from "../components/common/ModalProtocol.vue";
 import ProtocolItem from "../components/common/ProtocolItem.vue";
+import ButtonSorting from "../components/common/ButtonSorting.vue";
 import { ref, computed, reactive, watch } from "vue";
 import { useSettingsStore, useAuthStore } from "../stores";
 import { useRouter } from "vue-router";
@@ -13,18 +14,28 @@ const router = useRouter();
 const settingsStore = useSettingsStore();
 const authStore = useAuthStore();
 const API_URL = computed(() => settingsStore.API_URL);
-const protocols = ref<any[]>([]);
+const protocols = ref<Protocol[]>([]);
 const endRange = ref();
 const startRange = ref();
 const totalClients = ref();
 const isProtocolModal = ref<boolean>(false);
-const currentIdProtocol = ref<number>();
+const currentIdProtocol = ref<string>();
 const newStatusOptions = ref([]);
+const sortingType = ref<SortingProtocol>("");
+const reverseSort = ref(false);
+
+const sorting = (value: SortingProtocol) => {
+  sortingType.value = value;
+  if (sortingType.value === value) {
+    reverseSort.value = !reverseSort.value;
+    return false;
+  }
+};
 
 const switchProtocol = (value: boolean) => {
   isProtocolModal.value = value;
 };
-const setCurrentIdProtocol = (id: number) => {
+const setCurrentIdProtocol = (id: string) => {
   currentIdProtocol.value = id;
 };
 
@@ -49,6 +60,7 @@ const filters = reactive({
   protocolEnddateEnd: "",
   contractEnddateStart: "",
   contractEnddateEnd: "",
+  shortName: "",
 });
 
 const onCleanFilters = () => {
@@ -66,6 +78,7 @@ const onCleanFilters = () => {
   filters.protocolEnddateEnd = "";
   filters.contractEnddateStart = "";
   filters.contractEnddateEnd = "";
+  filters.shortName = "";
 
   fetchProtocols();
 };
@@ -129,6 +142,8 @@ const fetchProtocols = () => {
     },
     body: JSON.stringify({
       access_token: token,
+      sort_by: sortingType.value,
+      reverse_sort: reverseSort.value,
       page: +filters.page,
       per_page: +filters.perPage,
       newstatus: filters.newstatus,
@@ -143,6 +158,7 @@ const fetchProtocols = () => {
       protocol_enddate_end: filters.protocolEnddateEnd,
       contract_enddate_start: filters.contractEnddateStart,
       contract_enddate_end: filters.contractEnddateEnd,
+      short_name: filters.shortName,
     }),
   })
     .then((res) => res.json())
@@ -165,7 +181,7 @@ const onSendFilters = () => {
 };
 
 watch(
-  [() => filters.page, () => filters.perPage],
+  [() => filters.page, () => filters.perPage, sortingType, reverseSort],
   () => {
     fetchProtocols();
   },
@@ -197,6 +213,13 @@ fetchProtocols();
               placeholder=""
               type="text"
               >Ключове слово:</CommonInput
+            >
+            <CommonInput
+              v-model="filters.shortName"
+              class="shrink-1"
+              placeholder=""
+              type="text"
+              >Назва учасника:</CommonInput
             >
             <DoubleCalendar
               v-model:start="filters.auctionDateStart"
@@ -248,14 +271,13 @@ fetchProtocols();
                 >Підписання договору до:</DoubleCalendar
               >
             </div>
-            <div
-              class="md:col-span-2 gap-[10px] flex-col sm:flex-row items-end lg:col-span-2 flex justify-end"
+          </div>
+          <div
+            class="gap-[10px] my-[10px] flex-col sm:flex-row items-end flex justify-end"
+          >
+            <UiButton class="!rounded-[26px] !text-[14px] !py-[9px] !px-[45px]"
+              >Пошук</UiButton
             >
-              <UiButton
-                class="!rounded-[26px] !text-[14px] !py-[9px] !px-[45px]"
-                >Пошук</UiButton
-              >
-            </div>
             <UiButton
               type="button"
               @click="onCleanFilters"
@@ -268,13 +290,20 @@ fetchProtocols();
       <div
         class="bg-primary-600 rounded-[20px] mt-[59px] pb-[30px] px-[5px] md:px-[15px] max-w-[75vw] lg:max-w-[100%] xl:max-w-[100%] overflow-auto lg:overflow-visible custom_no_scroll_bar"
       >
-        <table class="table-auto lg:table-fixed w-full text-left border-collapse">
-          <thead class="top-[0px] sticky z-10 bg-primary-600" >
+        <table
+          class="table-auto lg:table-fixed w-full text-left border-collapse"
+        >
+          <thead class="top-[0px] sticky z-10 bg-primary-600">
             <tr>
               <th
                 class="text-[14px] font-medium text-white whitespace-nowrap p-[30px] px-[20px]"
               >
-                Дата аукціону
+                <ButtonSorting
+                  :checkSorting="sortingType === 'auction_date' && reverseSort"
+                  @sorting="sorting('auction_date')"
+                >
+                  Дата аукціону
+                </ButtonSorting>
               </th>
               <th
                 class="text-[14px] font-medium text-white whitespace-nowrap p-[30px] px-[20px]"
@@ -287,24 +316,53 @@ fetchProtocols();
                 Учасник
               </th>
               <th
-                class="text-[14px] font-medium text-white whitespace-nowrap p-[30px] px-[20px]"
+                class="text-[14px] font-medium text-white p-[30px] px-[20px]"
               >
                 Статус аукціону
               </th>
               <th
-                class="text-[14px] font-medium whitespace-nowrap text-white p-[30px] px-[20px]"
+                class="text-[14px] font-medium text-white p-[30px] px-[20px]"
               >
-                Формування протоколу
+                <ButtonSorting
+                  :checkSorting="sortingType === 'newprotokol' && reverseSort"
+                  @sorting="sorting('newprotokol')"
+                >
+                  Формування протоколу
+                </ButtonSorting>
               </th>
               <th
-                class="text-[14px] font-medium whitespace-nowrap text-white p-[30px]"
+                class="text-[14px] font-medium text-white p-[30px]"
               >
-                Підписання протоколу до
+                <ButtonSorting
+                  :checkSorting="
+                    sortingType === 'protocol_enddate' && reverseSort
+                  "
+                  @sorting="sorting('protocol_enddate')"
+                >
+                  Підписання протоколу до
+                </ButtonSorting>
               </th>
               <th
-                class="text-[14px] font-medium whitespace-nowrap text-white p-[30px]"
+                class="text-[14px] font-medium text-white p-[30px]"
               >
-                Підписання договору до
+                <ButtonSorting
+                  :checkSorting="
+                    sortingType === 'contract_enddate' && reverseSort
+                  "
+                  @sorting="sorting('contract_enddate')"
+                >
+                  Підписання договору до
+                </ButtonSorting>
+              </th>
+              <th
+                class="text-[14px] font-medium  text-white p-[30px]"
+              >
+                <ButtonSorting 
+                  :checkSorting="sortingType === 'sign_enddate' && reverseSort"
+                  @sorting="sorting('sign_enddate')"
+                >
+                  Підписання протоколу учасником до
+                </ButtonSorting>
               </th>
               <th
                 class="text-[14px] font-medium whitespace-nowrap text-white p-[30px]"

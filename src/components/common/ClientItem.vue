@@ -17,12 +17,14 @@ const openModal = () => {
     <td
       class="text-[14px] text-light font-normal truncate max-w-[300px] whitespace-nowrap p-[20px]"
     >
-      {{ client?.code }}
+       {{ client?.code }}
     </td>
     <td
       class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"
     >
-      <button class="p-0 underline" @click="openModal">{{ client?.short_name }}</button>
+      <button class="p-0 underline" @click="openModal">
+        {{ client?.short_name }}
+      </button>
     </td>
     <td
       class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"

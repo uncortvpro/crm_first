@@ -4,6 +4,7 @@ import UiButton from "../components/ui/UiButton.vue";
 import DoubleCalendar from "../components/common/DoubleCalendar.vue";
 import ModalCardClient from "../components/common/ModalCardClient.vue";
 import ClientItem from "../components/common/ClientItem.vue";
+import ButtonSorting from "../components/common/ButtonSorting.vue";
 import { ref, computed, watch } from "vue";
 import { useSettingsStore, useAuthStore } from "../stores";
 import { useRouter } from "vue-router";
@@ -18,6 +19,16 @@ const startRange = ref();
 const totalClients = ref();
 const isCardClient = ref<boolean>(false);
 const currentIdCard = ref<number>();
+const sortingType = ref<SortingClient>("");
+const reverseSort = ref(false);
+
+const sorting = (value: SortingClient) => {
+  sortingType.value = value;
+  if (sortingType.value === value) {
+    reverseSort.value = !reverseSort.value;
+    return false;
+  }
+};
 
 const switchCard = (value: boolean) => {
   isCardClient.value = value;
@@ -114,6 +125,8 @@ const fetchClients = () => {
     },
     body: JSON.stringify({
       access_token: token,
+      sort_by: sortingType.value,
+      reverse_sort: reverseSort.value,
       page: +filters.value.page,
       per_page: +filters.value.perPage,
       keyword: filters.value.keywords,
@@ -146,7 +159,12 @@ const onSendFilters = () => {
 };
 
 watch(
-  [() => filters.value.page, () => filters.value.perPage],
+  [
+    () => filters.value.page,
+    () => filters.value.perPage,
+    sortingType,
+    reverseSort,
+  ],
   () => {
     fetchClients();
   },
@@ -276,12 +294,22 @@ fetchClients();
               <th
                 class="text-[14px] font-medium whitespace-nowrap text-white p-[30px] px-[20px]"
               >
-                Дата реєстрації
+                <ButtonSorting
+                  :checkSorting="sortingType === 'register_date' && reverseSort"
+                  @sorting="sorting('register_date')"
+                >
+                  Дата реєстрації
+                </ButtonSorting>
               </th>
               <th
                 class="text-[14px] font-medium whitespace-nowrap text-white p-[30px]"
               >
-                Дата створення
+                <ButtonSorting
+                  :checkSorting="sortingType === 'create_date' && reverseSort"
+                  @sorting="sorting('create_date')"
+                >
+                  Дата створення
+                </ButtonSorting>
               </th>
               <th
                 class="text-[14px] font-medium whitespace-nowrap text-white p-[30px]"
