@@ -22,7 +22,7 @@ const openModal = () => {
     <td
       class="text-[14px] text-light font-normal truncate max-w-[300px] whitespace-nowrap p-[20px]"
     >
-      <a class="underline" :href="protocol.link_gc">{{ protocol.tenderID }}</a>
+      <a class="underline" target="_blank" :href="protocol.link_gc">{{ protocol.tenderID }}</a>
     </td>
     <td
       class="text-[14px] truncate max-w-[300px] text-light font-normal p-[20px]"

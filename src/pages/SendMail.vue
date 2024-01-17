@@ -6,6 +6,7 @@ import UiButton from "../components/ui/UiButton.vue";
 import TextareaLabel from "../components/ui/TextareaLabel.vue";
 import ModalAddRecipients from "../components/common/ModalAddRecipients.vue";
 import LabelVue from "../components/ui/Label.vue";
+import ModalMailingText from "../components/common/ModalMailingText.vue";
 
 import { useSettingsStore } from "../stores";
 const settingsStore = useSettingsStore();
@@ -14,6 +15,7 @@ const API_URL = computed(() => settingsStore.API_URL);
 const error = ref();
 const message = ref();
 const isModalAddRecipients = ref(false);
+const isModalMailingText = ref(false);
 const inputs = ref({
   subject: "",
   recipients: [],
@@ -22,6 +24,10 @@ const inputs = ref({
 
 const switchModalAddRecipients = (value: boolean) => {
   isModalAddRecipients.value = value;
+};
+
+const switchMailingText = (value: boolean) => {
+  isModalMailingText.value = value;
 };
 
 const sendMail = () => {
@@ -58,6 +64,10 @@ const sendMail = () => {
     <h3 class="text-[26px] md:text-[36px] font-light">
       Надіслати повідомлення
     </h3>
+    <ModalMailingText
+      v-model:text="inputs.text"
+      v-model="isModalMailingText"
+    ></ModalMailingText>
     <ModalAddRecipients
       v-model:emails="inputs.recipients"
       v-model="isModalAddRecipients"
@@ -109,6 +119,16 @@ const sendMail = () => {
                 @click="switchModalAddRecipients(true)"
                 class="!rounded-[26px] !text-[14px] !py-[9px] !px-[45px]"
                 >Додати отримувачів</UiButton
+              >
+            </div>
+            <div
+              class="col-span-2 gap-[10px] flex-col sm:flex-row items-start flex justify-start"
+            >
+              <UiButton
+                type="button"
+                @click="switchMailingText(true)"
+                class="!rounded-[26px] !text-[14px] !py-[9px] !px-[45px]"
+                >Вставити текст</UiButton
               >
             </div>
             <p v-if="error" class="text-[14px] col-span-2 text-red-700">

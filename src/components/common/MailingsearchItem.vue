@@ -28,7 +28,7 @@ defineProps<{
     <td
       class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"
     >
-      <a :href="mailingSearchItem?.link" class="p-0 underline">
+      <a :href="mailingSearchItem?.link" target="_blank" class="p-0 underline">
         {{ mailingSearchItem?.link }}
       </a>
     </td>

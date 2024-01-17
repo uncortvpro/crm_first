@@ -13,7 +13,7 @@ const auctions = ref<any>([]);
 
 const fetchHistoryClient = () => {
   const token = localStorage.getItem("token");
-  fetch(`${API_URL.value}/protocols`, {
+  fetch(`${API_URL.value}/users_auctions`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -25,7 +25,9 @@ const fetchHistoryClient = () => {
   })
     .then((res) => res.json())
     .then((res: any) => {
-      auctions.value = res.protocols;
+      console.log(res);
+
+      auctions.value = res.auctions;
     });
 };
 fetchHistoryClient();
@@ -89,6 +91,7 @@ watch(
               class="text-[14px] text-center text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"
             >
               <UiButton
+                target="_blank"
                 :href="auction.link_gc"
                 class="!text-[14px] !px-[17px] !py-[3px] normal-case hover:!bg-primary-400"
                 >Посилання</UiButton

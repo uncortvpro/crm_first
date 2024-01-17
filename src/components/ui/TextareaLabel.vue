@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
-defineProps<{
+const props = defineProps<{
   modelValue: string;
 }>();
 const emits = defineEmits(["update:modelValue"]);
@@ -10,6 +10,17 @@ const value = ref("");
 const handleChange = () => {
   emits("update:modelValue", value.value);
 };
+
+const getStartValue = () => {
+  value.value = props.modelValue;
+};
+
+watch(
+  () => props.modelValue,
+  () => {
+    getStartValue();
+  }
+);
 </script>
 <template>
   <label class="text-[12px] flex flex-col gap-[7px]" for="">
