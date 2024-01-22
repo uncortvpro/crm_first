@@ -32,18 +32,30 @@ const clearError = () => {
 
 const fetchRecipients = (closeModal: Function) => {
   const token = localStorage.getItem("token");
+
+  const requestBody = {
+    access_token: token,
+    keyword: inputs.value.keyword,
+    stream: inputs.value.stream,
+  };
+
+  if (+inputs.value.minPrice) {
+    Object.assign(requestBody, {
+      min_price: +inputs.value.minPrice,
+    });
+  }
+  if (+inputs.value.maxPrice) {
+    Object.assign(requestBody, {
+      max_price: +inputs.value.maxPrice,
+    });
+  }
+
   fetch(`${API_URL.value}/new_mailing_list`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      access_token: token,
-      min_price: +inputs.value.minPrice || false,
-      max_price: +inputs.value.maxPrice || false,
-      keyword: inputs.value.keyword,
-      stream: inputs.value.stream,
-    }),
+    body: JSON.stringify(requestBody),
   })
     .then((res) => res.json())
     .then((res) => {
@@ -51,7 +63,7 @@ const fetchRecipients = (closeModal: Function) => {
         error.value = "Отримувачів не знайдено";
         return false;
       }
-      clearError()
+      clearError();
       inputs.value.minPrice = "";
       inputs.value.maxPrice = "";
       inputs.value.keyword = "";
