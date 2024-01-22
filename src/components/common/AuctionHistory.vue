@@ -92,7 +92,7 @@ watch(
             >
               <UiButton
                 target="_blank"
-                :href="auction.link_gc"
+                :href="`https://sales.tsbgalcontract.org.ua/auction/${auction.tenderID}`"
                 class="!text-[14px] !px-[17px] !py-[3px] normal-case hover:!bg-primary-400"
                 >Посилання</UiButton
               >
