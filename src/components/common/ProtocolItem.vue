@@ -71,7 +71,7 @@ const openModal = () => {
       {{ useDate(protocol.sign_enddate) }}
     </td>
     <td
-      class="text-[14px] text-light truncate max-w-[300px] whitespace-nowrap font-normal p-[20px]"
+      class="text-[14px] text-light  break-words max-w-[300px] font-normal p-[20px]"
     >
       {{ protocol.comment }}
     </td>
