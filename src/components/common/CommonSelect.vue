@@ -36,10 +36,11 @@ watch(
 
     <select
       @change="($event: any) => value = $event.target.value"
-      id="countries"
       class="rounded-[26px] border bg-transparent px-[20px] pr-[30px] h-[38px] border-primary-50 remove_arrow_input"
     >
-      <option class="bg-primary-600" selected value="">Виберіть варіант</option>
+      <option class="bg-primary-600" :selected="!modelValue" value="">
+        Виберіть варіант
+      </option>
       <option class="bg-primary-600" v-for="option in options" :value="option">
         {{ option }}
       </option>
